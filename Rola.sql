@@ -1,2 +1,2 @@
-insert into Rola values (1, 'Administrator');
-insert into Rola values (2, 'U¿ytkownik');
+insert into Rola values ('Administrator');
+insert into Rola values ('U¿ytkownik');
