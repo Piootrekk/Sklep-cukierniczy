@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,13 @@ namespace Domain.Models
         public string PhoneNumber { get; set; } = String.Empty;
         public string FirstName { get; set; } = String.Empty;
         public string LastName { get; set; } = String.Empty;
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
+
+        // Remove comment if necessary
+        //[NotMapped]
+        //public bool Editing { get; set; } = false;
+        //[NotMapped]
+        //public bool IsNew { get; set; } = false;
 
 
 

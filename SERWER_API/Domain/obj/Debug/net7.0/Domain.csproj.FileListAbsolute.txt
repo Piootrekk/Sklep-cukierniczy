@@ -12,3 +12,17 @@ C:\Users\Michal\Documents\GitHub\SklepCukierniczy\Reactivities\Domain\obj\Debug\
 C:\Users\Michal\Documents\GitHub\SklepCukierniczy\Reactivities\Domain\obj\Debug\net7.0\ref\Domain.dll
 C:\Users\Michal\Documents\GitHub\SklepCukierniczy\Reactivities\Domain\bin\Debug\net7.0\Domain.runtimeconfig.json
 C:\Users\Michal\Documents\GitHub\SklepCukierniczy\Reactivities\Domain\obj\Debug\net7.0\Domain.genruntimeconfig.cache
+D:\Sklep-cukierniczy\SERWER_API\Domain\bin\Debug\net7.0\Domain.deps.json
+D:\Sklep-cukierniczy\SERWER_API\Domain\bin\Debug\net7.0\Domain.runtimeconfig.json
+D:\Sklep-cukierniczy\SERWER_API\Domain\bin\Debug\net7.0\Domain.dll
+D:\Sklep-cukierniczy\SERWER_API\Domain\bin\Debug\net7.0\Domain.pdb
+D:\Sklep-cukierniczy\SERWER_API\Domain\obj\Debug\net7.0\Domain.csproj.AssemblyReference.cache
+D:\Sklep-cukierniczy\SERWER_API\Domain\obj\Debug\net7.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Sklep-cukierniczy\SERWER_API\Domain\obj\Debug\net7.0\Domain.AssemblyInfoInputs.cache
+D:\Sklep-cukierniczy\SERWER_API\Domain\obj\Debug\net7.0\Domain.AssemblyInfo.cs
+D:\Sklep-cukierniczy\SERWER_API\Domain\obj\Debug\net7.0\Domain.csproj.CoreCompileInputs.cache
+D:\Sklep-cukierniczy\SERWER_API\Domain\obj\Debug\net7.0\Domain.dll
+D:\Sklep-cukierniczy\SERWER_API\Domain\obj\Debug\net7.0\refint\Domain.dll
+D:\Sklep-cukierniczy\SERWER_API\Domain\obj\Debug\net7.0\Domain.pdb
+D:\Sklep-cukierniczy\SERWER_API\Domain\obj\Debug\net7.0\Domain.genruntimeconfig.cache
+D:\Sklep-cukierniczy\SERWER_API\Domain\obj\Debug\net7.0\ref\Domain.dll

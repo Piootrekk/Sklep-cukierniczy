@@ -20,8 +20,8 @@ namespace Persistence.DataContextFolder
 
         }
 
-        DbSet<User> Users { get; set; }
-        DbSet<Role> Roles { get; set; }
-        DbSet<Localisation> Localisations { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Localisation> Localisations { get; set; }
     }
 }
