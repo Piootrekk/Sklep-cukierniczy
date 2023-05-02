@@ -23,5 +23,11 @@ namespace Persistence.DataContextFolder
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Localisation> Localisations { get; set; }
+        public DbSet<Category> Categorys { get; set; }
+        public DbSet<ConfigurationPosition> ConfigurationPositions { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ShipmentType> ShipmentTypes { get; set; }
     }
 }
