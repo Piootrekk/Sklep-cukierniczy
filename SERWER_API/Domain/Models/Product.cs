@@ -21,6 +21,8 @@ namespace Domain.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal PriceBrutto { get; set; }
         public int Amount { get; set; }
+        public bool IsActive { get; set; } = true;
+        public bool IsDeleted { get; set; } = false;
 
     }
 }

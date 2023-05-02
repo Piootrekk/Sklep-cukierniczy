@@ -25,5 +25,6 @@ namespace Domain.Models
         public bool IsCanceled { get; set; } 
         public DateTime OrderCanceled { get; set; }
 
+
     }
 }
