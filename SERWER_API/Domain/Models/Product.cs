@@ -16,7 +16,8 @@ namespace Domain.Models
         public bool isIngredient { get; set; } = false;
         public Category? Category { get; set; } 
         public List<Image> Images { get; set; } = new List<Image>();
-        public List<Order> Orders { get; set; } = new List<Order>();
+        public List<Order>? Orders { get; set; }
+        public List<CustomCake>? CustomCakes { get; set; }
         public ConfigurationPosition? Position { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal PriceBrutto { get; set; }
