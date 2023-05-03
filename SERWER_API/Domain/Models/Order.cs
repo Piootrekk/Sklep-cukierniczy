@@ -15,7 +15,7 @@ namespace Domain.Models
         public decimal Price { get; set; }
         public ShipmentType ShipmentType { get; set; }
         public User User { get; set; }
-        public List<Product> Products { get; set; } = new List<Product>();
+        public List<OrderProductItem> OrderProductItems { get; set; } 
         public bool IsPayed { get; set; }
         public DateTime OrderCreated { get; set; }
         public bool IsAccepted { get; set; } = false;
@@ -24,6 +24,7 @@ namespace Domain.Models
         public DateTime OrderCompleted { get; set; }
         public bool IsCanceled { get; set; } 
         public DateTime OrderCanceled { get; set; }
+
 
     }
 }

@@ -13,5 +13,7 @@ namespace Domain.Models
         public string CityName { get; set; } = String.Empty;
         public string HouseNumber { get; set; } = String.Empty;
         public string PostalCode { get; set; } = String.Empty;
+        public bool IsActive { get; set; } = true;
+        public bool IsDeleted { get; set; } = false;
     }
 }

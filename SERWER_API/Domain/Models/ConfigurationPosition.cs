@@ -9,6 +9,9 @@ namespace Domain.Models
     public class ConfigurationPosition
     {
         public int Id { get; set; }
+        public int Placement { get; set; }
         public string Name { get; set; } = String.Empty; //Top , Bottom , Middle
+        public bool IsActive { get; set; } = true;
+        public bool IsDeleted { get; set; } = false;
     }
 }

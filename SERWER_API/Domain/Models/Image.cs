@@ -12,5 +12,6 @@ namespace Domain.Models
         public string Name { get; set; } = String.Empty;
         public string Url { get; set; } = String.Empty;
         public DateTime Added { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

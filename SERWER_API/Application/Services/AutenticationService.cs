@@ -20,19 +20,61 @@ namespace Application.Services
             _data = data;
         }
 
-        public Task<ServiceResponse<bool>> ChangeEmail(int userId, string newEmail)
+        public async Task<ServiceResponse<bool>> ChangeEmail(int userId, string newEmail)
         {
-            throw new NotImplementedException();
+            var user = await _data.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Success = false,
+                    ReturnMesage = "User not found."
+                };
+            }
+
+            user.Email = newEmail;
+
+            await _data.SaveChangesAsync();
+
+            return new ServiceResponse<bool> { Value = true, Success = true, ReturnMesage = "Email has been changed." };
         }
 
-        public Task<ServiceResponse<bool>> ChangeFirstName(int userId, string newFirstName)
+        public async Task<ServiceResponse<bool>> ChangeFirstName(int userId, string newFirstName)
         {
-            throw new NotImplementedException();
+            var user = await _data.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Success = false,
+                    ReturnMesage = "User not found."
+                };
+            }
+
+            user.FirstName = newFirstName;
+
+            await _data.SaveChangesAsync();
+
+            return new ServiceResponse<bool> { Value = true, Success = true, ReturnMesage = "FirstName has been changed." };
         }
 
-        public Task<ServiceResponse<bool>> ChangeLastName(int userId, string newLastName)
+        public async Task<ServiceResponse<bool>> ChangeLastName(int userId, string newLastName)
         {
-            throw new NotImplementedException();
+            var user = await _data.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Success = false,
+                    ReturnMesage = "User not found."
+                };
+            }
+
+            user.LastName = newLastName;
+
+            await _data.SaveChangesAsync();
+
+            return new ServiceResponse<bool> { Value = true, Success = true, ReturnMesage = "LastName has been changed." };
         }
 
         public Task<ServiceResponse<bool>> ChangeLocalisation(int userId, string adres)
@@ -40,12 +82,57 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ServiceResponse<bool>> ChangeNumber(int userId, string newNumber)
+        public async Task<ServiceResponse<bool>> ChangeNumber(int userId, string newNumber)
+        {
+            var user = await _data.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Success = false,
+                    ReturnMesage = "User not found."
+                };
+            }
+
+            user.PhoneNumber = newNumber;
+
+            await _data.SaveChangesAsync();
+            return new ServiceResponse<bool> { Value = true, Success = true, ReturnMesage = "PhoneNumber has been changed." };
+        }
+
+        public async Task<ServiceResponse<bool>> ChangePassword(int userId, string newPassword)
+        {
+            var user = await _data.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Success = false,
+                    ReturnMesage = "User not found."
+                };
+            }
+
+            CreatePasswordHash(newPassword, out byte[] passwordHash, out byte[] passwordSalt);
+
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+
+            await _data.SaveChangesAsync();
+
+            return new ServiceResponse<bool>
+            {
+                Value = true,
+                Success = true,
+                ReturnMesage = "Password has been changed."
+            };
+        }
+
+        public Task<ServiceResponse<int>> CreateRole(Role role)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ServiceResponse<bool>> ChangePassword(int userId, string newPassword)
+        public Task<ServiceResponse<Role>> DeleteRole(int RoleId)
         {
             throw new NotImplementedException();
         }
@@ -60,14 +147,38 @@ namespace Application.Services
             };
         }
 
-        public Task<ServiceResponse<User>> GetUserByID(int Id)
+        public async Task<ServiceResponse<User>> GetUserByID(int Id)
         {
-            throw new NotImplementedException();
+            var User = await _data.Users.FirstOrDefaultAsync(x => x.Id == Id);
+            if (User == null)
+            {
+                return new ServiceResponse<User> { Value = null, Success = false, ReturnMesage = "Found no user" };
+            }
+            return new ServiceResponse<User> { Value = User, Success = true, ReturnMesage = "Found the user" };
         }
 
-        public Task<ServiceResponse<string>> Login(string Username, string password)
+        public async Task<ServiceResponse<string>> Login(string Username, string password)
         {
-            throw new NotImplementedException();
+            var response = new ServiceResponse<string>();
+            var user = await _data.Users.FirstOrDefaultAsync(x => x.Username == Username);
+            if (user == null)
+            {
+                response.Success = false;
+                response.ReturnMesage = "Bad Username or Login";
+            }
+
+            else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            {
+                response.Success = false;
+                response.ReturnMesage = "Bad Username or Login";
+            }
+            else
+            {
+                
+                response.ReturnMesage = "Token";
+                response.Success = true;
+            }
+            return response;
         }
 
         public async Task<ServiceResponse<int>> Register(User user, string password)
@@ -111,6 +222,11 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
+        public Task<ServiceResponse<Role>> UpdateRole(Role role)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> UserExistsEmail(string Email)
         {
             if (await _data.Users.AnyAsync(user => user.Email.ToLower()
@@ -150,5 +266,7 @@ namespace Application.Services
                 return computedHash.SequenceEqual(passwordHash);
             }
         }
+
+
     }
 }
