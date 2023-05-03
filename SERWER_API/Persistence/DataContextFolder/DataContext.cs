@@ -30,5 +30,6 @@ namespace Persistence.DataContextFolder
         public DbSet<Product> Products { get; set; }
         public DbSet<ShipmentType> ShipmentTypes { get; set; }
         public DbSet<CustomCake> CustomCakes { get; set; }
+        public DbSet<OrderProductItem> OrderProductItems { get; set; }
     }
 }

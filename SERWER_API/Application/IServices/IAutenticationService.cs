@@ -22,6 +22,11 @@ namespace Application.IServices
         Task<ServiceResponse<bool>> ChangeLocalisation(int userId, string adres);
         Task<ServiceResponse<User>> GetUserByID(int Id);
         Task<ServiceResponse<bool>> ResetPasword(string Email);
+
+        // For roles; Think about making a seperate service;
         Task<ServiceResponse<List<Role>>> GetAllRoles();
+        Task<ServiceResponse<int>> CreateRole(Role role);
+        Task<ServiceResponse<Role>> UpdateRole(Role role);
+        Task<ServiceResponse<Role>> DeleteRole(int RoleId);
     }
 }

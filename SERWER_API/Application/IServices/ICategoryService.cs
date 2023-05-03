@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Models;
+using Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,10 @@ namespace Application.IServices
 {
     public interface ICategoryService
     {
+        public Task<ServiceResponse<List<Category>>> GetAllCategorysAsync();
+        public Task<ServiceResponse<List<Category>>> GetAllAdminCategories();
+        public Task<ServiceResponse<List<Category>>> AddCategory(Category category);
+        public Task<ServiceResponse<List<Category>>> UpdateCategory(Category category);
+        public Task<ServiceResponse<List<Category>>> DeleteCategory(int id);
     }
 }

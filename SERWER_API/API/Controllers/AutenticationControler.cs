@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Win32;
+using Persistence.DataContextFolder;
 using System.Security.Claims;
 
 namespace API.Controllers
@@ -50,6 +51,19 @@ namespace API.Controllers
         {
             var respone = await _AutenticationService.GetAllRoles();
             return Ok(respone);
+        }
+
+        [HttpPost("login/", Name = "LoginToAcount")]
+        public async Task<ActionResult<ServiceResponse<string>>> Login(UserLogin login)
+        {
+            var result = await _AutenticationService.Login(login.Username, login.Password);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
         }
     }
 }
