@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './styles.css';
 import axios from 'axios';
 import { Button, Header, List } from 'semantic-ui-react';
 
@@ -11,7 +11,6 @@ function App() {
     axios.get('http://localhost:5003/api/autentication/getallroles')
     .then(response=>
       {
-        console.log(response)
         setRoles(response.data.value)
       })
   }, [])

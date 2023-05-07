@@ -13,10 +13,10 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/autentication")]
-    public class AutenticationControler : ControllerBase
+    public class AutenticationController : ControllerBase
     {
         private readonly IAutenticationService _AutenticationService;
-        public AutenticationControler(IAutenticationService autenticationService)
+        public AutenticationController(IAutenticationService autenticationService)
         {
             _AutenticationService= autenticationService;
         }
@@ -64,6 +64,51 @@ namespace API.Controllers
             }
 
             return Ok(result);
+        }
+
+        [HttpPost("changeemail/", Name = "changeemail")]
+        public async Task<ActionResult<ServiceResponse<bool>>> ChangeEmail([FromBody] string newemail , string UserID)
+        {
+            //var UserID = User.FindFirstValue(ClaimTypes.NameIdentifier); //Set while craeting the token. Geting the user id/
+
+            var response = await _AutenticationService.ChangeEmail(int.Parse(UserID), newemail);
+
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPost("changenumber/", Name = "changenumber")]
+        public async Task<ActionResult<ServiceResponse<bool>>> ChangeNumber([FromBody] string newnumber, string UserID)
+        {
+            //var UserID = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+
+            var response = await _AutenticationService.ChangeNumber(int.Parse(UserID), newnumber);
+
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPost("changepasword/", Name = "changepasword")]
+        public async Task<ActionResult<ServiceResponse<bool>>> ChangePasword([FromBody] string newpasword, string UserID)
+        {
+            //var UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var response = await _AutenticationService.ChangePassword(int.Parse(UserID), newpasword);
+
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
         }
     }
 }
