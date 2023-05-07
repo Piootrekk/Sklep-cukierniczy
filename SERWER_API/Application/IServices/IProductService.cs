@@ -19,8 +19,8 @@ namespace Application.IServices
         //public Task<ServiceResponse<ProductSearchResultDTO>> SearchForProducts(string SearchText, int PageNumber, int PageResults, string Category);
         //public Task<ServiceResponse<List<string>>> SearchForSugestions(string Text, string Category);
         public Task<ServiceResponse<List<Product>>> GetAllAdminProducts();
-        public Task<ServiceResponse<Product>> Create(Product product, int WhoId);
-        public Task<ServiceResponse<Product>> Update(Product product, int WhoId);
+        public Task<ServiceResponse<Product>> Create(Product product);
+        public Task<ServiceResponse<Product>> Update(Product product);
         public Task<ServiceResponse<bool>> Delete(int productId);
     }
 }
