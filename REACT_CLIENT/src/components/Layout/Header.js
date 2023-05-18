@@ -3,13 +3,21 @@ import HeaderCart from "./HeaderCart";
 
 import classes from "./Header.module.css";
 import PhotoHeader from "../../assets/PhotoHeader.png";
+import logo from "../../assets/ciastko___/ciastko_napis.png";
+import UserButton from "./UserButton";
 
 const Header = (props) => {
   return (
     <Fragment>
       <header className={classes.header}>
-        <h1>ZaczarowanaCukiernia</h1>
-        <HeaderCart onClick={props.onShowCart}/>
+        <section className={classes.div}>
+          <img src={logo} className={classes.imageLogo} alt="logo" />
+          <h1>ZaczarowanaCukiernia</h1>
+        </section>
+        <section className={classes.div}>
+          <HeaderCart onClick={props.onShowCart} />
+          <UserButton />
+        </section>
       </header>
       <div className={classes["main-image"]}>
         <img src={PhotoHeader} alt="A table full of delicious food!" />
