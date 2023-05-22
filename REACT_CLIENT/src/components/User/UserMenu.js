@@ -6,7 +6,7 @@ const UserMenu = (props) => {
     return (
         <Modal onClose={props.onClose}>
         <div className={classes.total}>
-            <span>Ustawienia Użytkownika</span>
+            <h2>Ustawienia Użytkownika</h2>
             <span>W trakcie budowy</span>
             <span>YeeMEN</span>
         </div>
