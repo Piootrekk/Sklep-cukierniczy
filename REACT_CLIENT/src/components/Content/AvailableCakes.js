@@ -10,7 +10,7 @@ const DUMMY_CAKES = [
     name: "Ciasto czekoladowe",
     description:
       "Pyszne ciasto czekoladowe z kremem i polewą czekoladową na wierzchu i bokach. Dekorowane czekoladowymi wiórkami i truskawkami. Waga: 1,5 kg.",
-    price: 2137.0,
+    price: 21.37,
     pathImage: "",
   },
   {
@@ -25,7 +25,7 @@ const DUMMY_CAKES = [
     name: "Ciasto malinowe",
     description:
       "Pyszne ciasto malinowe z kremem i polewą malinową na wierzchu i bokach. Dekorowane malinami. Waga: 1,5 kg.",
-    price: 1337.0,
+    price: 13.37,
     pathImage: "",
   },
   {

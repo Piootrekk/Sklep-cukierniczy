@@ -40,7 +40,7 @@ const FormItem = (props) => {
         }}
       />
       <button>Dodaj</button>
-      {!amountIsValid && <p>Proszę wprowadzić poprawną ilość (1-10).</p>}
+      {!amountIsValid && <p>ERROR.</p>}
     </form>
   );
 };

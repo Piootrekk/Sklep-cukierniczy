@@ -13,6 +13,10 @@ const CakesSummary = () => {
         Wszystkie nasze ciasta są przygotowywane z najwyższej jakości
         składników, z pasją i miłością. Zamów już dziś!
       </p>
+      <div className={classes.actions}>
+        <button>Gotowe Ciasta</button>
+        <button>Konfigurator Ciast</button>
+      </div>
     </section>
   );
 };

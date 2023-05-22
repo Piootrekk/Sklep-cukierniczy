@@ -1,16 +1,17 @@
 .button {
-    cursor: pointer;
-    font: inherit;
-    border: none;
-    background-color: #4d1601;
-    color: white;
-    padding: 0.75rem 3rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-radius: 25px;
-    font-weight: bold;
-  }
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  background-color: #4d1601;
+  color: white;
+  padding: 0.75rem 3rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 25px;
+  font-weight: bold;
+  position: relative; /* Dodany styl */
+}
   
   .button:hover,
   .button:active {
@@ -23,6 +24,11 @@
     margin-right: 0.5rem;
   }
   
+  .div {
+    display: flex;
+    gap: 1rem;
+  }
+
 
   .badge {
     background-color: #b94517;
@@ -58,3 +64,8 @@
       transform: scale(1);
     }
   }
+
+  
+
+  
+

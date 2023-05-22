@@ -3,7 +3,7 @@ import HeaderCart from "./HeaderCart";
 
 import classes from "./Header.module.css";
 import PhotoHeader from "../../assets/PhotoHeader.png";
-import logo from "../../assets/ciastko___/ciastko_napis.png";
+import logo from "../../assets/ciastko_usmiech_beznapis.png";
 import UserButton from "./UserButton";
 
 const Header = (props) => {
@@ -16,7 +16,9 @@ const Header = (props) => {
         </section>
         <section className={classes.div}>
           <HeaderCart onClick={props.onShowCart} />
-          <UserButton />
+          <UserButton value="LOGIN"/>
+          <UserButton value="REGISTER"/>
+          {/* <UserButton  isModalAvailable={true}/> */}
         </section>
       </header>
       <div className={classes["main-image"]}>
