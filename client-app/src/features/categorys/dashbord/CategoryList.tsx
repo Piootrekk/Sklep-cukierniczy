@@ -5,10 +5,15 @@ import { Button, Item, ItemDescription, ItemExtra, ItemGroup, Segment } from "se
 
 interface Props {
     categories: Category[];
+    selectCategory: (id: number) => void;
+    openForm: (id:number) => void;
+    closeForm: ()=>void;
 }
 
 
-export default function CategoryList({categories}: Props)
+  
+
+export default function CategoryList({categories,selectCategory,openForm,closeForm}: Props)
 {
     return(
         <Segment>
@@ -21,10 +26,11 @@ export default function CategoryList({categories}: Props)
                                 <div>Is Active: {category.isActive ? 'Tak' : 'Nie'}</div>
                                 <div>Is Deleted: {category.isDeleted ? 'Tak' : 'Nie'}</div>
                             </ItemDescription>
-                            <ItemExtra>
-                                <Button floated='right' content='Edit' color="blue"/>
+                            <Item.Extra>
+                                <Button onClick={event=>{selectCategory(category.id); closeForm()}} floated='right' content='View' color="blue"/>
+                                <Button onClick={()=>openForm(category.id)} floated='left' content='Edit' color="blue"/>
                                 <Button floated='left' content='Delete' color="red"/>
-                            </ItemExtra>
+                            </Item.Extra>
                         </Item.Content>
                     </Item>
                 ))}

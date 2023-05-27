@@ -12,6 +12,8 @@ import CategoryDashboard from '../../features/categorys/dashbord/CategoryDashboa
 
 function App() {
   const [categories,setRoles]=useState<Category[]>([]);
+  const [SelectedCategory,setSelectedCategory] = useState<Category|undefined>(undefined);
+  const [editMode,setEditMode] =useState(false);
 
   useEffect(()=>{
     axios.get<ServiceResponse>('http://localhost:5003/api/categorys/getcategorys')
@@ -21,11 +23,37 @@ function App() {
       })
   }, [])
 
+  function HandleSelectCategory(id: number) {
+    setSelectedCategory(categories.find(x=>x.id===id));
+  }
+
+  function handleCansleSelectCategory()
+  {
+    setSelectedCategory(undefined);
+  }
+
+  function HandleFormOpen(id?: number)
+  {
+    id ? HandleSelectCategory(id): handleCansleSelectCategory();
+    setEditMode(true);
+  }
+
+  function HandleFormClose()
+  {
+    setEditMode(false);
+  }
   return (
     <Fragment>
-    <NavBar/>
+    <NavBar openForm={HandleFormOpen}/>
     <Container style={{marginTop:'7rem'}}>
-      <CategoryDashboard categories={categories}/>
+      <CategoryDashboard categories={categories}
+      selectedCategory = {SelectedCategory}
+      selectCategory = {HandleSelectCategory}
+      cancelSelectCategory={handleCansleSelectCategory}
+      editMode={editMode}
+      openForm={HandleFormOpen}
+      closeForm={HandleFormClose}
+      />
     </Container>
     </Fragment>
   );

@@ -3,7 +3,13 @@ import { Button, Container, Menu, MenuItem } from "semantic-ui-react";
 import logo from "../assets/ciastko___/ciastko_napis.png";
 import classes from'./NavBar.module.css';
 
-export default function NavBar()
+interface Props
+{
+  openForm:()=>void;
+}
+
+
+export default function NavBar({openForm}:Props)
 {
     return(
         <Menu inverted fixed='top'>
@@ -14,7 +20,7 @@ export default function NavBar()
                 </Menu.Item>
                 <Menu.Item as="div" name="Categories" className={classes.div}/>
                 <Menu.Item as="div">
-                    <Button positive content='Create Role'/>
+                    <Button onClick={()=>openForm()} positive content='Create Role'/>
                 </Menu.Item>
             </Container>
         </Menu>
