@@ -13,10 +13,13 @@ interface Props {
     editMode: boolean;
     openForm:(id?: number)=> void;
     closeForm:() => void;
+    createOrEdit: (category: Category)=>void;
+    deleteCategory: (id:number)=>void;
+    submiting: boolean
 }
 
 
-export default function CategoryDashboard({categories,selectedCategory,selectCategory,cancelSelectCategory,editMode,openForm,closeForm}: Props)
+export default function CategoryDashboard({categories,selectedCategory,selectCategory,cancelSelectCategory,editMode,openForm,closeForm,createOrEdit,deleteCategory,submiting}: Props)
 {
     return(
         <Grid>
@@ -25,7 +28,9 @@ export default function CategoryDashboard({categories,selectedCategory,selectCat
                 categories={categories}
                 selectCategory={selectCategory}
                 openForm={openForm}
-                closeForm={closeForm}/>
+                closeForm={closeForm}
+                deleteCategory={deleteCategory}
+                submiting={submiting}/>
             </GridColumn>
             <GridColumn width={6}>
                 {selectedCategory && !editMode &&
@@ -34,7 +39,7 @@ export default function CategoryDashboard({categories,selectedCategory,selectCat
                 cancelSelectCategory={cancelSelectCategory}
                 openForm={openForm} />}
                 {editMode &&
-                <CategoryForm closeForm={closeForm} category={selectedCategory}/>}
+                <CategoryForm closeForm={closeForm} category={selectedCategory} createOrEdit={createOrEdit} submiting={submiting}/>}
             </GridColumn>
         </Grid>
     )

@@ -8,12 +8,14 @@ interface Props {
     selectCategory: (id: number) => void;
     openForm: (id:number) => void;
     closeForm: ()=>void;
+    deleteCategory: (id:number)=>void;
+    submiting: boolean
 }
 
 
   
 
-export default function CategoryList({categories,selectCategory,openForm,closeForm}: Props)
+export default function CategoryList({categories,selectCategory,openForm,closeForm,deleteCategory,submiting}: Props)
 {
     return(
         <Segment>
@@ -29,7 +31,7 @@ export default function CategoryList({categories,selectCategory,openForm,closeFo
                             <Item.Extra>
                                 <Button onClick={event=>{selectCategory(category.id); closeForm()}} floated='right' content='View' color="blue"/>
                                 <Button onClick={()=>openForm(category.id)} floated='left' content='Edit' color="blue"/>
-                                <Button floated='left' content='Delete' color="red"/>
+                                <Button loading={submiting} onClick={()=>deleteCategory(category.id)} floated='left' content='Delete' color="red"/>
                             </Item.Extra>
                         </Item.Content>
                     </Item>
