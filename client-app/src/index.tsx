@@ -5,6 +5,7 @@ import './app/layout/styles.css';
 import Login from './Login';
 import reportWebVitals from './reportWebVitals';
 import App from './app/layout/App';
+import { StoreContext, store } from './app/stores/store';
 
 
 const root = ReactDOM.createRoot(
@@ -13,8 +14,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   //<React.StrictMode>
-   <Login/>
-   // <App/>
+   //<Login/>
+   <StoreContext.Provider value={store}>
+   <App/>
+   </StoreContext.Provider>
   //</React.StrictMode>
 );
 
