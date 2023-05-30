@@ -1,18 +1,16 @@
 import React, { ChangeEvent, useState } from "react";
 import { Category } from "../../../app/models/Category";
 import { Button, Form, Segment } from "semantic-ui-react";
+import { useStore } from "../../../app/stores/store";
+import { observable } from "mobx";
+import { observer } from "mobx-react-lite";
 
 
-interface Props
+export default observer (function CategoryForm()
 {
-  category: Category|undefined;
-  closeForm:()=>void;
-  createOrEdit: (category: Category)=>void;
-  submiting: boolean
-}
 
-export default function CategoryForm({category: selectedCategory,closeForm,createOrEdit,submiting}:Props)
-{
+  const {categoryStore} =useStore();
+  const {selectedCategory,createCategory,updateCategory,loading} = categoryStore;
 
   const initialState = selectedCategory ?? {
     id: 0,
@@ -25,7 +23,7 @@ export default function CategoryForm({category: selectedCategory,closeForm,creat
 
   function HandleSubmit()
   {
-    createOrEdit(category);
+    category.id ? updateCategory(category) : createCategory(category);
   }
 
   function HandleImputchange(event: ChangeEvent<HTMLInputElement>)
@@ -34,7 +32,6 @@ export default function CategoryForm({category: selectedCategory,closeForm,creat
     
     if (type === "checkbox") {
       setCategory({ ...category, [name]: checked });
-      console.log(category)
     } else {
     setCategory({ ...category, [name]: value });
     }
@@ -56,9 +53,9 @@ export default function CategoryForm({category: selectedCategory,closeForm,creat
       </div>
     </div>
   </div>
-  <Button loading={submiting} className="ui inverted primary button" type='submit'>Submit</Button>
-  <button className="ui inverted orange button" onClick={()=>closeForm()} type='button' >Cencle</button>
+  <Button loading={loading} className="ui inverted primary button" type='submit'>Submit</Button>
+  <button className="ui inverted orange button" onClick={()=>categoryStore.closeForm()} type='button' >Cencle</button>
 </form>
         </Segment>
     )
-}
+})

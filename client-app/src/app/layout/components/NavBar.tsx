@@ -2,15 +2,15 @@ import React from "react";
 import { Button, Container, Menu, MenuItem } from "semantic-ui-react";
 import logo from "../assets/ciastko___/ciastko_napis.png";
 import classes from'./NavBar.module.css';
+import { useStore } from "../../stores/store";
 
-interface Props
+
+
+export default function NavBar()
 {
-  openForm:()=>void;
-}
 
+    const categoryStore = useStore();
 
-export default function NavBar({openForm}:Props)
-{
     return(
         <Menu inverted fixed='top'>
             <Container>
@@ -20,7 +20,7 @@ export default function NavBar({openForm}:Props)
                 </Menu.Item>
                 <Menu.Item as="div" name="Categories" className={classes.div}/>
                 <Menu.Item as="div">
-                    <Button onClick={()=>openForm()} positive content='Create Role'/>
+                    <Button onClick={()=>categoryStore.categoryStore.openForm()} positive content='Create Role'/>
                 </Menu.Item>
             </Container>
         </Menu>

@@ -1,17 +1,18 @@
 import React from "react";
-import { Category } from "../../../app/models/Category";
 import { Button } from "semantic-ui-react";
-
-interface Props {
-    category: Category;
-    cancelSelectCategory: () =>void;
-    openForm: (id:number) => void;
-}
+import { useStore } from "../../../app/stores/store";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 
 
 
-export default function CategoryDetails({category,cancelSelectCategory,openForm}: Props)
+
+export default function CategoryDetails()
 {
+  const {categoryStore} =useStore();
+  const {selectedCategory: category} =categoryStore;
+
+  if (!category) return <LoadingComponent/>;
+
     return(
         <div className="ui card">
         <div className="content">
@@ -24,8 +25,8 @@ export default function CategoryDetails({category,cancelSelectCategory,openForm}
           <b>Is Deleted: {category.isDeleted ? 'Tak' : 'Nie'}</b>
           </div>
         </div>
-        <Button content="Cencle" onClick={cancelSelectCategory}></Button>
-        <Button content="Edit" onClick={()=>openForm(category.id)}></Button>
+        <Button content="Cencle" onClick={categoryStore.cencleSelectedCategory}></Button>
+        <Button content="Edit" onClick={()=>categoryStore.openForm(category.id)}></Button>
       </div>
     )
 }
