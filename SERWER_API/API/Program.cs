@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAutenticationService, AutenticationService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IShipingTypeService, ShipingTypeService>();
 
 
 builder.Services.AddCors(opt =>
