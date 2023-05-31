@@ -1,3 +1,12 @@
--- TODO: Jakie kategorie?
-
-insert into Kategoria values ('Domyœlna');
+insert into Kategoria values ('W³asne');
+insert into Kategoria values ('Dro¿d¿owe');
+insert into Kategoria values ('Dla wegan');
+insert into Kategoria values ('Dla cukrzyków');
+insert into Kategoria values ('Biszkoptowe');
+insert into Kategoria values ('Tarty');
+insert into Kategoria values ('Kremowe');
+insert into Kategoria values ('Ciastka');
+insert into Kategoria values ('Bezy');
+insert into Kategoria values ('Œwi¹teczne');
+insert into Kategoria values ('Mleczne');
+insert into Kategoria values ('Proszek');
