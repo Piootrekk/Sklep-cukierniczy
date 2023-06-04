@@ -16,6 +16,7 @@ namespace Domain.Models
         public ShipmentType ShipmentType { get; set; }
         public User User { get; set; }
         public List<OrderProductItem> OrderProductItems { get; set; } 
+        public List<CustomCakeProductItem>? CustomCakeProductItem { get; set; } 
         public bool IsPayed { get; set; }
         public DateTime OrderCreated { get; set; }
         public bool IsAccepted { get; set; } = false;

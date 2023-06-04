@@ -1,4 +1,5 @@
 ﻿using Application.IServices;
+using Azure;
 using Domain;
 using Domain.DTO;
 using Domain.Models;
@@ -44,13 +45,6 @@ namespace API.Controllers
                 return BadRequest(result);
             }
             return Ok(result);
-        }
-
-        [HttpGet("getallroles/", Name = "GetAllRoles")]
-        public async Task<ActionResult<ServiceResponse<List<Role>>>> GetAllRoles()
-        {
-            var respone = await _AutenticationService.GetAllRoles();
-            return Ok(respone);
         }
 
         [HttpPost("login/", Name = "LoginToAcount")]
@@ -108,6 +102,80 @@ namespace API.Controllers
                 return BadRequest(response);
             }
 
+            return Ok(response);
+        }
+
+        [HttpGet("getuserdata/{id}", Name = "GetUserData")]
+        public async Task<ActionResult<ServiceResponse<List<Role>>>> GetUserData(int id)
+        {
+            //var UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var response = await _AutenticationService.GetUserByID(id);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpGet("getallusers/", Name = "GetAllUsers")]
+        public async Task<ActionResult<ServiceResponse<List<Role>>>> GetAllUsers()
+        {
+            var response = await _AutenticationService.GetAllUsers();
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpPut("editlocalisation/", Name = "EditLocalisation")]
+        public async Task<ActionResult<ServiceResponse<List<Role>>>> EditLocalisation(int Id,Localisation localisation )
+        {
+            var response = await _AutenticationService.ChangeLocalisation(Id,localisation);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpGet("getallroles/", Name = "GetAllRoles")]
+        public async Task<ActionResult<ServiceResponse<List<Role>>>> GetAllRoles()
+        {
+            var respone = await _AutenticationService.GetAllRoles();
+            return Ok(respone);
+        }
+
+        [HttpPost("addrole/", Name = "AddRole")]
+        public async Task<ActionResult<ServiceResponse<List<Role>>>> AddRole(Role role)
+        {
+            var response = await _AutenticationService.CreateRole(role);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpPut("editrole/", Name = "EditRole")]
+        public async Task<ActionResult<ServiceResponse<List<Role>>>> EditRole(Role role)
+        {
+            var response = await _AutenticationService.UpdateRole(role);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
+        [HttpDelete("deleterole/{id}", Name = "DeleteRole")]
+        public async Task<ActionResult<ServiceResponse<List<Role>>>> DeleteRole(int id)
+        {
+            var response = await _AutenticationService.DeleteRole(id);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
             return Ok(response);
         }
     }

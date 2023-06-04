@@ -98,13 +98,52 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IngredientList")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("PriceBrutto")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CustomCakes");
+                });
+
+            modelBuilder.Entity("Domain.Models.CustomCakeProductItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomCakeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomCakeId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("CustomCakeProductItems");
                 });
 
             modelBuilder.Entity("Domain.Models.Image", b =>
@@ -264,7 +303,10 @@ namespace Persistence.Migrations
                     b.Property<int>("AmountInStock")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ConfigurationPositionId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -281,9 +323,6 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PositionId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("PriceBrutto")
                         .HasColumnType("decimal(18,2)");
 
@@ -294,7 +333,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("PositionId");
+                    b.HasIndex("ConfigurationPositionId");
 
                     b.ToTable("Products");
                 });
@@ -420,6 +459,25 @@ namespace Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Domain.Models.CustomCakeProductItem", b =>
+                {
+                    b.HasOne("Domain.Models.CustomCake", "CustomCake")
+                        .WithMany()
+                        .HasForeignKey("CustomCakeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Order", "Order")
+                        .WithMany("CustomCakeProductItem")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomCake");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("Domain.Models.Image", b =>
                 {
                     b.HasOne("Domain.Models.Product", null)
@@ -469,11 +527,15 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Models.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Domain.Models.ConfigurationPosition", "Position")
                         .WithMany()
-                        .HasForeignKey("PositionId");
+                        .HasForeignKey("ConfigurationPositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
@@ -497,6 +559,8 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Models.Order", b =>
                 {
+                    b.Navigation("CustomCakeProductItem");
+
                     b.Navigation("OrderProductItems");
                 });
 

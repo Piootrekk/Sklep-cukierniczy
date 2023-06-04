@@ -19,8 +19,9 @@ namespace Application.IServices
         Task<ServiceResponse<bool>> ChangeLastName(int userId, string newLastName);
         Task<ServiceResponse<bool>> ChangeEmail(int userId, string newEmail);
         Task<ServiceResponse<bool>> ChangeNumber(int userId, string newNumber);
-        Task<ServiceResponse<bool>> ChangeLocalisation(int userId, string adres);
+        Task<ServiceResponse<bool>> ChangeLocalisation(int userId, Localisation  localisation); 
         Task<ServiceResponse<User>> GetUserByID(int Id);
+        Task<ServiceResponse<List<User>>> GetAllUsers();
         Task<ServiceResponse<bool>> ResetPasword(string Email);
 
         // For roles; Think about making a seperate service;

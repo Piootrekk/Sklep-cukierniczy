@@ -77,9 +77,31 @@ namespace Application.Services
             return new ServiceResponse<bool> { Value = true, Success = true, ReturnMesage = "LastName has been changed." };
         }
 
-        public Task<ServiceResponse<bool>> ChangeLocalisation(int userId, string adres)
+        public async Task<ServiceResponse<bool>> ChangeLocalisation(int userId, Localisation localisation)
         {
-            throw new NotImplementedException();
+            var User = await _data.Users.Include(p=>p.Localisation).FirstOrDefaultAsync(x => x.Id == userId);
+            if (User == null )
+            {
+                return new ServiceResponse<bool> { Success = false, ReturnMesage = "Found no user" };
+            }
+            if(User.Localisation==null)
+            {
+                User.Localisation = localisation;
+                await _data.SaveChangesAsync();
+
+                return new ServiceResponse<bool> { Success = true, ReturnMesage = "Localisation Changed" };
+            }
+            else
+            {
+                int oldid = User.Localisation.Id;
+                User.Localisation = localisation;
+
+                var oldLocalisation = await _data.Localisations.FirstOrDefaultAsync(x => x.Id == oldid);
+                _data.Localisations.Remove(oldLocalisation);
+                await _data.SaveChangesAsync();
+            }
+            return new ServiceResponse<bool> { Success = true, ReturnMesage = "Localisation Changed" };
+
         }
 
         public async Task<ServiceResponse<bool>> ChangeNumber(int userId, string newNumber)
@@ -127,14 +149,47 @@ namespace Application.Services
             };
         }
 
-        public Task<ServiceResponse<int>> CreateRole(Role role)
+        public async Task<ServiceResponse<int>> CreateRole(Role role)
         {
-            throw new NotImplementedException();
+            await _data.AddAsync(role);
+            await _data.SaveChangesAsync();
+
+            return new ServiceResponse<int> {  Success = true, ReturnMesage = "Role added!" };
         }
 
-        public Task<ServiceResponse<Role>> DeleteRole(int RoleId)
+        public async Task<ServiceResponse<Role>> DeleteRole(int RoleId)
         {
-            throw new NotImplementedException();
+            Role role;
+            try
+            {
+                 role = await _data.Roles.FindAsync(RoleId);
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<Role> { Success = false, ReturnMesage = "no such role! Error" };
+            }
+            if (role == null)
+                return new ServiceResponse<Role> { Success = false, ReturnMesage = "no such role!" };
+
+            role.IsDeleted = true;
+            await _data.SaveChangesAsync();
+
+            return new ServiceResponse<Role> { Success = true, ReturnMesage = "Role Deleted" };
+        }
+
+        public async Task<ServiceResponse<Role>> UpdateRole(Role role)
+        {
+            var Role = await _data.Roles.FirstOrDefaultAsync(x=>x.Id==role.Id);
+            if (Role == null)
+                return new ServiceResponse<Role> { Success = false, ReturnMesage = "no such role!" };
+
+            Role.Name = role.Name;
+            Role.Level = role.Level;
+            Role.IsDeleted = role.IsDeleted;
+            Role.IsActive = role.IsActive;
+
+            await _data.SaveChangesAsync();
+            return new ServiceResponse<Role> { Value=Role, Success = true, ReturnMesage = "role updated" };
         }
 
         public async Task<ServiceResponse<List<Role>>> GetAllRoles()
@@ -149,12 +204,22 @@ namespace Application.Services
 
         public async Task<ServiceResponse<User>> GetUserByID(int Id)
         {
-            var User = await _data.Users.FirstOrDefaultAsync(x => x.Id == Id);
+            var User = await _data.Users.Include(p=>p.Role).Include(b=>b.Localisation).FirstOrDefaultAsync(x => x.Id == Id);
             if (User == null)
             {
                 return new ServiceResponse<User> { Value = null, Success = false, ReturnMesage = "Found no user" };
             }
             return new ServiceResponse<User> { Value = User, Success = true, ReturnMesage = "Found the user" };
+        }
+
+        public async Task<ServiceResponse<List<User>>> GetAllUsers()
+        {
+            var User = await _data.Users.Include(p => p.Role).Include(b => b.Localisation).ToListAsync();
+            if (User == null)
+            {
+                return new ServiceResponse<List<User>> { Value = null, Success = false, ReturnMesage = "Found no users" };
+            }
+            return new ServiceResponse<List<User>> { Value = User, Success = true, ReturnMesage = "Found the users" };
         }
 
         public async Task<ServiceResponse<string>> Login(string Username, string password)
@@ -222,11 +287,6 @@ namespace Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ServiceResponse<Role>> UpdateRole(Role role)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<bool> UserExistsEmail(string Email)
         {
             if (await _data.Users.AnyAsync(user => user.Email.ToLower()
@@ -266,7 +326,6 @@ namespace Application.Services
                 return computedHash.SequenceEqual(passwordHash);
             }
         }
-
 
     }
 }
