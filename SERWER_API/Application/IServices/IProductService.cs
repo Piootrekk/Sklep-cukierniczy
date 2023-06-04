@@ -17,7 +17,7 @@ namespace Application.IServices
         public Task<ServiceResponse<List<Product>>> GetProductByPosition(string position);
         public Task<ServiceResponse<List<Product>>> GetAllAdminProducts();
         public Task<ServiceResponse<Product>> Create(Product product);
-        public Task<ServiceResponse<Product>> Update(Product product);
+        public Task<ServiceResponse<Product>> Update(Product product , int Id);
         public Task<ServiceResponse<bool>> Delete(int productId);
 
         // Dodanie wyszukiewarki w przyszłości.

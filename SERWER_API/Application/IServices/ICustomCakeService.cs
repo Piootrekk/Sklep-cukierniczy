@@ -11,9 +11,8 @@ namespace Application.IServices
     public interface ICustomCakeService
     {
         public Task<ServiceResponse<List<CustomCake>>> GetAllCustomCakes();
-        public Task<ServiceResponse<List<CustomCake>>> GetAllUserCustomCakes();
-        public Task<ServiceResponse<List<CustomCake>>> AddCustomCake(CustomCake customCake);
-        public Task<ServiceResponse<List<CustomCake>>> UpdateCustomCake(CustomCake customCake);
+        public Task<ServiceResponse<List<CustomCake>>> AddCustomCake(string Description , string Name, decimal brutto, int[] ProductId);
+        public Task<ServiceResponse<List<CustomCake>>> UpdateCustomCake(string Description, string Name, decimal brutto, int[] ProductId, int CakeId);
         public Task<ServiceResponse<List<CustomCake>>> DeleteCustomCake(int id);
     }
 }

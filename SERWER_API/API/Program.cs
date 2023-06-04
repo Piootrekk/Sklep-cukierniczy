@@ -14,9 +14,9 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("Db_Cukiernia")));
 
-IConfiguration configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true).Build();
+//IConfiguration configuration = new ConfigurationBuilder()
+//            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+//            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true).Build();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,6 +26,7 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IShipingTypeService, ShipingTypeService>();
 builder.Services.AddScoped<IConfigurationPositionService, ConfigurationPositionService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICustomCakeService, CustomCakeService>();
 
 
 builder.Services.AddCors(opt =>

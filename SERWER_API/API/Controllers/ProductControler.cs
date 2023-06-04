@@ -40,7 +40,7 @@ namespace API.Controllers
             return Ok(respone);
         }
 
-        [HttpDelete("delete/", Name = "AddProduct")]
+        [HttpDelete("delete/", Name = "DeleteProduct")]
         public async Task<ActionResult<ServiceResponse<Product>>> DeleteProduct(int productId)
         {
 
@@ -69,7 +69,7 @@ namespace API.Controllers
             return Ok(respone);
         }
 
-        [HttpPut("update/", Name = "GetProductByPosition")]
+        [HttpPut("update/", Name = "UpdateProduct")]
         public async Task<ActionResult<ServiceResponse<List<Product>>>> UpdateProduct(Product product, int Id)
         {
             var respone = await _productService.Update( product, Id);

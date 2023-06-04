@@ -12,6 +12,8 @@ namespace Domain.Models
         public string Name { get; set; } =string.Empty;
         public string Description { get; set; } = string.Empty;
         public List<Product> Products { get; set; } = new List<Product>();
-
+        public decimal PriceBrutto { get; set; }
+        public string IngredientList { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }
