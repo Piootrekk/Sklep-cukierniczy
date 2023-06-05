@@ -70,6 +70,26 @@ namespace Application.Services
             return response;
         }
 
+        public async Task<ServiceResponse<List<Product>>> GetIngridients()
+        {
+            var response = new ServiceResponse<List<Product>>()
+            {
+                Value = await _data.Products.Where(p => p.IsActive && !p.IsDeleted && p.isIngredient).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category)
+                .ToListAsync()
+            };
+            return response;
+        }
+
+        public async Task<ServiceResponse<List<Product>>> GetIngridientsByPosition(string position)
+        {
+            var response = new ServiceResponse<List<Product>>()
+            {
+                Value = await _data.Products.Where(p => p.IsActive && !p.IsDeleted && p.isIngredient && p.Position.Name==position).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category)
+                .ToListAsync()
+            };
+            return response;
+        }
+
         public async Task<ServiceResponse<List<Product>>> GetProductByCategory(string Category)
         {
             var response = new ServiceResponse<List<Product>>()

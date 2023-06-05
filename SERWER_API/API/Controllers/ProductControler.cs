@@ -24,6 +24,19 @@ namespace API.Controllers
             var respone = await _productService.GetAllProducts();
             return Ok(respone);
         }
+        [HttpGet("getallingridients/", Name = "GetAllIngridients")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetAllIngridients()
+        {
+            var respone = await _productService.GetIngridients();
+            return Ok(respone);
+        }
+
+        [HttpGet("getingridientsbyposition/", Name = "GetAllIngridientsByPosition")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetAllIngridientsByPosition(string position)
+        {
+            var respone = await _productService.GetIngridientsByPosition(position);
+            return Ok(respone);
+        }
 
         [HttpGet("getalladmin/", Name = "GetAllAdminProducts")]
         public async Task<ActionResult<ServiceResponse<List<Product>>>> GetAllAdminProducts()
