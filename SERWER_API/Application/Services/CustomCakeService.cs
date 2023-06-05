@@ -70,7 +70,7 @@ namespace Application.Services
 
         public async Task<ServiceResponse<List<CustomCake>>> GetAllCustomCakes()
         {
-            var response = await _data.CustomCakes.Where(c => !c.IsDeleted).Include(p=>p.Products).ToListAsync();
+            var response = await _data.CustomCakes.Where(c => !c.IsDeleted).ToListAsync();
             return new ServiceResponse<List<CustomCake>>
             {
                 Value = response,

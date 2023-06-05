@@ -15,6 +15,8 @@ namespace Application.IServices
         public Task<ServiceResponse<Product>> GetProductByID(int Id);
         public Task<ServiceResponse<List<Product>>> GetProductByCategory(string Category);
         public Task<ServiceResponse<List<Product>>> GetProductByPosition(string position);
+        public Task<ServiceResponse<List<Product>>> GetIngridients();
+        public Task<ServiceResponse<List<Product>>> GetIngridientsByPosition(string position);
         public Task<ServiceResponse<List<Product>>> GetAllAdminProducts();
         public Task<ServiceResponse<Product>> Create(Product product);
         public Task<ServiceResponse<Product>> Update(Product product , int Id);
