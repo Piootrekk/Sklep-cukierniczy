@@ -4,6 +4,7 @@ using Domain.Models;
 using Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Domain.DTO;
 
 namespace API.Controllers
 {
@@ -29,16 +30,16 @@ namespace API.Controllers
         }
 
         [HttpPost("addcake/" , Name ="AddCustomCake")]
-        public async Task<ActionResult<ServiceResponse<List<Category>>>> AddCustomCake(string Description, string Name, decimal brutto, int[] ProductId)
+        public async Task<ActionResult<ServiceResponse<List<Category>>>> AddCustomCake(CustomCakeDTO cakeDTO)
         {
-            var result = await _customCakeService.AddCustomCake(Description,Name,brutto,ProductId);
+            var result = await _customCakeService.AddCustomCake(cakeDTO.Description, cakeDTO.Name, cakeDTO.PriceBrutto, cakeDTO.IngredientList);
             return Ok(result);
         }
 
         [HttpPut("editcustomcake/",Name ="EditCustomCake")]
-        public async Task<ActionResult<ServiceResponse<List<Category>>>> EditCustomCake(string Description, string Name, decimal brutto, int[] ProductId, int CakeId)
+        public async Task<ActionResult<ServiceResponse<List<Category>>>> EditCustomCake(CustomCakeDTO cakeDTO)
         {
-            var result = await _customCakeService.UpdateCustomCake(Description, Name, brutto, ProductId, CakeId);
+            var result = await _customCakeService.UpdateCustomCake(cakeDTO.Description, cakeDTO.Name, cakeDTO.PriceBrutto, cakeDTO.IngredientList,cakeDTO.Id);
             return Ok(result);
         }
     }

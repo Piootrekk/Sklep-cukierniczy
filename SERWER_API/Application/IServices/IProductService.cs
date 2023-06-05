@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Domain.DTO;
 
 namespace Application.IServices
 {
@@ -18,8 +19,8 @@ namespace Application.IServices
         public Task<ServiceResponse<List<Product>>> GetIngridients();
         public Task<ServiceResponse<List<Product>>> GetIngridientsByPosition(string position);
         public Task<ServiceResponse<List<Product>>> GetAllAdminProducts();
-        public Task<ServiceResponse<Product>> Create(Product product);
-        public Task<ServiceResponse<Product>> Update(Product product , int Id);
+        public Task<ServiceResponse<Product>> Create(ProductDTO product);
+        public Task<ServiceResponse<Product>> Update(ProductDTO product , int Id);
         public Task<ServiceResponse<bool>> Delete(int productId);
 
         // Dodanie wyszukiewarki w przyszłości.

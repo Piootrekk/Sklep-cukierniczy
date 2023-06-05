@@ -1,5 +1,6 @@
 ﻿using Application.IServices;
 using Domain;
+using Domain.DTO;
 using Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -24,8 +25,22 @@ namespace Application.Services
             _data = data;
             _configuration = configuration;
         }
-        public async Task<ServiceResponse<Product>> Create(Product product)
+        public async Task<ServiceResponse<Product>> Create(ProductDTO productDTO)
         {
+            var product = new Product{ 
+            
+                Name = productDTO.Name,
+                Description = productDTO.Description,
+                isIngredient=productDTO.isIngredient,
+                CategoryId = productDTO.CategoryId,
+                Images = productDTO.Images,
+                ConfigurationPositionId = productDTO.ConfigurationPositionId,
+                PriceBrutto = productDTO.PriceBrutto,
+                AmountInStock = productDTO.AmountInStock,
+                IsActive = productDTO.IsActive, 
+            
+            };
+
             _data.Products.Add(product);
             await _data.SaveChangesAsync();
             return new ServiceResponse<Product> { Value = product, ReturnMesage = "Created a Prdouct", Success = true };
@@ -119,21 +134,30 @@ namespace Application.Services
             return response;
         }
 
-        public async Task<ServiceResponse<Product>> Update(Product product,int Id)
+        public async Task<ServiceResponse<Product>> Update(ProductDTO product,int Id)
         {
-            var Product = await _data.Products.Include(p => p.Images).Include(b => b.Position).Include(c => c.Category).FirstOrDefaultAsync(x => x.Id == Id && !x.IsDeleted);
+            Product Product=new Product();
+            try
+            {
+                Product = await _data.Products.Include(p => p.Images).Include(b => b.Position).Include(c => c.Category).FirstOrDefaultAsync(x => x.Id == Id && !x.IsDeleted);
+                Product.Name = product.Name;
+                Product.Description = product.Description;
+                Product.isIngredient = product.isIngredient;
+                Product.CategoryId = product.CategoryId;
+                Product.Images = product.Images;
+                Product.ConfigurationPositionId = product.ConfigurationPositionId;
+                Product.PriceBrutto = product.PriceBrutto;
+                Product.AmountInStock = product.AmountInStock;
+                Product.IsActive = product.IsActive;
 
-            Product.Name = product.Name;
-            Product.Description = product.Description;
-            Product.isIngredient = product.isIngredient;
-            Product.CategoryId= product.CategoryId;
-            Product.Images = product.Images;
-            Product.ConfigurationPositionId = product.ConfigurationPositionId;
-            Product.PriceBrutto = product.PriceBrutto;
-            Product.AmountInStock = product.AmountInStock;
-            Product.IsActive= product.IsActive;
-            Product.IsDeleted= product.IsDeleted;
+            }
+            catch (Exception ex)
+            {
+                new ServiceResponse<Product> { ReturnMesage = "No ProductFound", Success = false };
+            }
 
+
+            
             _data.SaveChanges();
             return  new ServiceResponse<Product> { Value = Product, ReturnMesage = "Updated the Prdouct", Success = true };
 
