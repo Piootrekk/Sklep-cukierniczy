@@ -5,6 +5,7 @@ using Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Domain.DTO;
 
 namespace API.Controllers
 {
@@ -46,9 +47,9 @@ namespace API.Controllers
         }
 
         [HttpPost("addproduct/", Name = "AddProduct")]
-        public async Task<ActionResult<ServiceResponse<Product>>> AddProduct(Product product)
+        public async Task<ActionResult<ServiceResponse<Product>>> AddProduct(ProductDTO product)
         {
-
+            
             var respone = await _productService.Create(product);
             return Ok(respone);
         }
@@ -83,9 +84,9 @@ namespace API.Controllers
         }
 
         [HttpPut("update/", Name = "UpdateProduct")]
-        public async Task<ActionResult<ServiceResponse<List<Product>>>> UpdateProduct(Product product, int Id)
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> UpdateProduct(ProductDTO product)
         {
-            var respone = await _productService.Update( product, Id);
+            var respone = await _productService.Update( product, product.Id);
             return Ok(respone);
         }
 
