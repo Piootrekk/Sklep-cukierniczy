@@ -19,35 +19,35 @@ namespace API.Controllers
         }
 
         [HttpGet("getall/", Name = "GetAllConfigurationPosition")]
-        public async Task<ActionResult<ServiceResponse<List<Category>>>> GetAllConfigurationPosition()
+        public async Task<ActionResult<ServiceResponse<List<ConfigurationPosition>>>> GetAllConfigurationPosition()
         {
             var respone = await _configurationPositionService.GetAllConfigurationPositions();
             return Ok(respone);
         }
 
         [HttpGet("getalladmin/", Name = "GetAllAdminConfigurationPosition")]
-        public async Task<ActionResult<ServiceResponse<List<Category>>>> GetAllAdminConfigurationPosition()
+        public async Task<ActionResult<ServiceResponse<List<ConfigurationPosition>>>> GetAllAdminConfigurationPosition()
         {
             var respone = await _configurationPositionService.GetAllAdminConfigurationPositions();
             return Ok(respone);
         }
 
         [HttpPost("addposition/", Name = "AddConfigurationPosition")]
-        public async Task<ActionResult<ServiceResponse<List<Category>>>> AddConfigurationPosition(ConfigurationPosition conf)
+        public async Task<ActionResult<ServiceResponse<List<ConfigurationPosition>>>> AddConfigurationPosition(ConfigurationPosition conf)
         {
             var respone = await _configurationPositionService.AddConfigurationPosition(conf);
             return Ok(respone);
         }
 
         [HttpPut("updateconfiguration/", Name = "UpdateConfigurationPosition")]
-        public async Task<ActionResult<ServiceResponse<List<Category>>>> UpdateConfigurationPosition(ConfigurationPosition conf)
+        public async Task<ActionResult<ServiceResponse<List<ConfigurationPosition>>>> UpdateConfigurationPosition(ConfigurationPosition conf)
         {
             var respone = await _configurationPositionService.UpdateConfigurationPosition(conf);
             return Ok(respone);
         }
 
         [HttpDelete("delete/{id}", Name = "deleteConfigurationPosition")]
-        public async Task<ActionResult<ServiceResponse<List<Category>>>> UpdateConfigurationPosition(int id)
+        public async Task<ActionResult<ServiceResponse<List<ConfigurationPosition>>>> UpdateConfigurationPosition(int id)
         {
             var respone = await _configurationPositionService.DeleteConfigurationPosition(id);
             return Ok(respone);
