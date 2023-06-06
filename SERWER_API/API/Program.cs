@@ -27,6 +27,7 @@ builder.Services.AddScoped<IShipingTypeService, ShipingTypeService>();
 builder.Services.AddScoped<IConfigurationPositionService, ConfigurationPositionService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomCakeService, CustomCakeService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 builder.Services.AddCors(opt =>

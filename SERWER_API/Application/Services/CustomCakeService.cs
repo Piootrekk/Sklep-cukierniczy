@@ -1,5 +1,6 @@
 ﻿using Application.IServices;
 using Domain;
+using Domain.DTO;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence.DataContextFolder;
@@ -14,8 +15,8 @@ namespace Application.Services
     public class CustomCakeService : ICustomCakeService
     {
         private readonly DataContext _data;
-        private readonly IProductService _productService;
-        public CustomCakeService(DataContext data,IProductService productService) {  _data = data; _productService = productService; }
+
+        public CustomCakeService(DataContext data) {  _data = data; }
 
         public async Task<ServiceResponse<List<CustomCake>>> AddCustomCake(string Description, string Name, decimal brutto, int[] ProductId)
         {
@@ -68,15 +69,79 @@ namespace Application.Services
             };
         }
 
-        public async Task<ServiceResponse<List<CustomCake>>> GetAllCustomCakes()
+        public async Task<ServiceResponse<List<CustomCakeDTO>>> GetAllCustomCakes()
         {
+            //consider returning int[] products insted of string.
             var response = await _data.CustomCakes.Where(c => !c.IsDeleted).ToListAsync();
-            return new ServiceResponse<List<CustomCake>>
+            var CakeList = new List<CustomCakeDTO>();
+
+            foreach (var cake in response)
             {
-                Value = response,
+                string[] words = cake.IngredientList.Split(";");
+                int[] list=new int[words.Length - 1];
+                
+                for(int i=0;i<words.Length - 1;i++)
+                {
+                    list[i] = Convert.ToInt32(words[i]);
+                }
+
+                var Cake = new CustomCakeDTO
+                {
+                    Id = cake.Id,
+                    Name = cake.Name,
+                    Description = cake.Description,
+                    PriceBrutto = cake.PriceBrutto,
+                    IngredientList = list
+
+
+                };
+                CakeList.Add(Cake);
+            }
+            return new ServiceResponse<List<CustomCakeDTO>>
+            {
+                Value = CakeList,
             };
         }
 
+        public async Task<ServiceResponse<CustomCakeDTO>> GetCustomCakeByID(int ID)
+        {
+            try
+            {
+                //consider returning int[] products insted of string.
+                var response = await _data.CustomCakes.FirstOrDefaultAsync(x => x.Id == ID);
+
+                string[] words = response.IngredientList.Split(";");
+                int[] list = new int[words.Length-1];
+
+                for (int i = 0; i < words.Length-1; i++)
+                {
+                    list[i] = Convert.ToInt32(words[i]);
+                }
+
+                var Cake = new CustomCakeDTO
+                {
+                    Id = response.Id,
+                    Name = response.Name,
+                    Description = response.Description,
+                    PriceBrutto = response.PriceBrutto,
+                    IngredientList = list
+
+
+                };
+
+                return new ServiceResponse<CustomCakeDTO>
+                {
+                    Value = Cake,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<CustomCakeDTO>
+                {
+                    Success = false, ReturnMesage="An isue Acured"+ex.Message,
+                };
+            }
+        }
         public async Task<ServiceResponse<List<CustomCake>>> UpdateCustomCake(string Description, string Name, decimal brutto, int[] ProductId, int CakeId)
         {
            var Cake = await _data.CustomCakes.FirstOrDefaultAsync(x=>x.Id == CakeId);

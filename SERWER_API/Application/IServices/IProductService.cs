@@ -12,15 +12,15 @@ namespace Application.IServices
 {
     public interface IProductService
     {
-        public Task<ServiceResponse<List<Product>>> GetAllProducts();
-        public Task<ServiceResponse<Product>> GetProductByID(int Id);
-        public Task<ServiceResponse<List<Product>>> GetProductByCategory(string Category);
-        public Task<ServiceResponse<List<Product>>> GetProductByPosition(string position);
-        public Task<ServiceResponse<List<Product>>> GetIngridients();
-        public Task<ServiceResponse<List<Product>>> GetIngridientsByPosition(string position);
-        public Task<ServiceResponse<List<Product>>> GetAllAdminProducts();
-        public Task<ServiceResponse<Product>> Create(ProductDTO product);
-        public Task<ServiceResponse<Product>> Update(ProductDTO product , int Id);
+        public Task<ServiceResponse<List<ProductDTO>>> GetAllProducts();
+        public Task<ServiceResponse<ProductDTO>> GetProductByID(int Id);
+        public Task<ServiceResponse<List<ProductDTO>>> GetProductByCategory(string Category);
+        public Task<ServiceResponse<List<ProductDTO>>> GetProductByPosition(string position);
+        public Task<ServiceResponse<List<ProductDTO>>> GetIngridients();
+        public Task<ServiceResponse<List<ProductDTO>>> GetIngridientsByPosition(string position);
+        public Task<ServiceResponse<List<ProductDTO>>> GetAllAdminProducts();
+        public Task<ServiceResponse<ProductDTO>> Create(ProductDTO product);
+        public Task<ServiceResponse<ProductDTO>> Update(ProductDTO product , int Id);
         public Task<ServiceResponse<bool>> Delete(int productId);
 
         // Dodanie wyszukiewarki w przyszłości.

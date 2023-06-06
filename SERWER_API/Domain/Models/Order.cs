@@ -13,9 +13,11 @@ namespace Domain.Models
         public int Id { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
-        public ShipmentType ShipmentType { get; set; }
-        public User User { get; set; }
-        public List<OrderProductItem> OrderProductItems { get; set; } 
+        public ShipmentType? ShipmentType { get; set; }
+        public int ShipmentTypeId { get; set; }
+        public User? User { get; set; }
+        public int UserId { get; set; }
+        public List<OrderProductItem>? OrderProductItems { get; set; } 
         public List<CustomCakeProductItem>? CustomCakeProductItem { get; set; } 
         public bool IsPayed { get; set; }
         public DateTime OrderCreated { get; set; }
