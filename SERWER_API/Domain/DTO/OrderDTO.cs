@@ -12,8 +12,9 @@ namespace Domain.DTO
         public decimal Price { get; set; }
         public int ShipmentTypeId { get; set; }
         public int UserId { get; set; }
-        public List<OrderProductItem>? OrderProductItems { get; set; }
-        public List<CustomCakeProductItem>? CustomCakeProductItem { get; set; }
+        public List<OrderProductItemDTO>? OrderProductItemsDTO { get; set; }
+        public List<CustomCakeProductItemDTO>? CustomCakeProductItemsDTO { get; set; }
+        public bool IsPayed { get; set; }
 
     }
 }

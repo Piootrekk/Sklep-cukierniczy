@@ -30,21 +30,21 @@ namespace API.Controllers
         }
 
         [HttpDelete("delete/{id}" , Name ="DeleteCustomCake")]
-        public async Task<ActionResult<ServiceResponse<List<Category>>>> DeleteCustomCake(int id)
+        public async Task<ActionResult<ServiceResponse<List<CustomCakeDTO>>>> DeleteCustomCake(int id)
         {
             var result = await _customCakeService.DeleteCustomCake(id);
             return Ok(result);
         }
 
         [HttpPost("addcake/" , Name ="AddCustomCake")]
-        public async Task<ActionResult<ServiceResponse<List<Category>>>> AddCustomCake(CustomCakeDTO cakeDTO)
+        public async Task<ActionResult<ServiceResponse<List<CustomCakeDTO>>>> AddCustomCake(CustomCakeDTO cakeDTO)
         {
             var result = await _customCakeService.AddCustomCake(cakeDTO.Description, cakeDTO.Name, cakeDTO.PriceBrutto, cakeDTO.IngredientList);
             return Ok(result);
         }
 
         [HttpPut("editcustomcake/",Name ="EditCustomCake")]
-        public async Task<ActionResult<ServiceResponse<List<Category>>>> EditCustomCake(CustomCakeDTO cakeDTO)
+        public async Task<ActionResult<ServiceResponse<List<CustomCakeDTO>>>> EditCustomCake(CustomCakeDTO cakeDTO)
         {
             var result = await _customCakeService.UpdateCustomCake(cakeDTO.Description, cakeDTO.Name, cakeDTO.PriceBrutto, cakeDTO.IngredientList,cakeDTO.Id);
             return Ok(result);

@@ -19,14 +19,14 @@ namespace Domain.Models
         public int UserId { get; set; }
         public List<OrderProductItem>? OrderProductItems { get; set; } 
         public List<CustomCakeProductItem>? CustomCakeProductItem { get; set; } 
-        public bool IsPayed { get; set; }
+        public bool IsPayed { get; set; }=false;
         public DateTime OrderCreated { get; set; }
         public bool IsAccepted { get; set; } = false;
-        public DateTime OrderAccepted { get; set; }
+        public DateTime? OrderAccepted { get; set; }
         public bool IsCompleted { get; set; } = false;
-        public DateTime OrderCompleted { get; set; }
-        public bool IsCanceled { get; set; } 
-        public DateTime OrderCanceled { get; set; }
+        public DateTime? OrderCompleted { get; set; }
+        public bool IsCanceled { get; set; } = false;
+        public DateTime? OrderCanceled { get; set; }
 
 
     }
