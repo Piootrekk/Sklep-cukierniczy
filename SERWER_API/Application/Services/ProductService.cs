@@ -25,7 +25,7 @@ namespace Application.Services
             _data = data;
             _configuration = configuration;
         }
-        public async Task<ServiceResponse<Product>> Create(ProductDTO productDTO)
+        public async Task<ServiceResponse<ProductDTO>> Create(ProductDTO productDTO)
         {
             var product = new Product{ 
             
@@ -43,7 +43,7 @@ namespace Application.Services
 
             _data.Products.Add(product);
             await _data.SaveChangesAsync();
-            return new ServiceResponse<Product> { Value = product, ReturnMesage = "Created a Prdouct", Success = true };
+            return new ServiceResponse<ProductDTO> {ReturnMesage = "Created a Prdouct", Success = true };
         }
 
         public async Task<ServiceResponse<bool>> Delete(int productId)
@@ -65,76 +65,197 @@ namespace Application.Services
             return new ServiceResponse<bool> { Value = true, Success = true, ReturnMesage = "Product Deleted" };
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetAllAdminProducts()
+        public async Task<ServiceResponse<List<ProductDTO>>> GetAllAdminProducts()
         {
-            var response = new ServiceResponse<List<Product>>()
+            var response = new List<Product>();
+            var dbProduct = new List<ProductDTO>();
+            response = await _data.Products.Where(p => !p.IsDeleted).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category)
+              .ToListAsync();
+            foreach (var productDTO in response)
             {
-                Value = await _data.Products.Where(p => !p.IsDeleted).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category)
-               .ToListAsync()
-            };
-            return response;
+                var product = new ProductDTO
+                {
+                    Id = productDTO.Id,
+                    Name = productDTO.Name,
+                    Description = productDTO.Description,
+                    isIngredient = productDTO.isIngredient,
+                    CategoryId = productDTO.CategoryId,
+                    Images = productDTO.Images,
+                    ConfigurationPositionId = productDTO.ConfigurationPositionId,
+                    PriceBrutto = productDTO.PriceBrutto,
+                    AmountInStock = productDTO.AmountInStock,
+                    IsActive = productDTO.IsActive,
+
+                };
+
+                dbProduct.Add(product);
+            }
+            return new ServiceResponse<List<ProductDTO>> { Value= dbProduct, ReturnMesage = "Product List", Success = true };
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetAllProducts()
+        public async Task<ServiceResponse<List<ProductDTO>>> GetAllProducts()
         {
-            var response = new ServiceResponse<List<Product>>()
+            var response = new List<Product>();
+            var dbProduct = new List<ProductDTO>();
+            response  = await _data.Products.Where(p => p.IsActive && !p.IsDeleted).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category).ToListAsync();
+
+            foreach (var productDTO in response)
             {
-                Value = await _data.Products.Where(p => p.IsActive && !p.IsDeleted).Include(p => p.Images).Include(b => b.Position).Include(c=>c.Category)
-               .ToListAsync()
-            };
-            return response;
+                var product = new ProductDTO
+                {
+                    Id = productDTO.Id,
+                    Name = productDTO.Name,
+                    Description = productDTO.Description,
+                    isIngredient = productDTO.isIngredient,
+                    CategoryId = productDTO.CategoryId,
+                    Images = productDTO.Images,
+                    ConfigurationPositionId = productDTO.ConfigurationPositionId,
+                    PriceBrutto = productDTO.PriceBrutto,
+                    AmountInStock = productDTO.AmountInStock,
+                    IsActive = productDTO.IsActive,
+
+                };
+
+                dbProduct.Add(product);
+            }
+            return  new ServiceResponse<List<ProductDTO>> { Value = dbProduct, ReturnMesage = "Product List", Success = true }; ;
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetIngridients()
+        public async Task<ServiceResponse<List<ProductDTO>>> GetIngridients()
         {
-            var response = new ServiceResponse<List<Product>>()
+            var response = new List<Product>();
+            var dbProduct = new List<ProductDTO>();
+            response = await _data.Products.Where(p => p.IsActive && !p.IsDeleted && p.isIngredient).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category).ToListAsync();
+
+            foreach (var productDTO in response)
             {
-                Value = await _data.Products.Where(p => p.IsActive && !p.IsDeleted && p.isIngredient).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category)
-                .ToListAsync()
-            };
-            return response;
+                var product = new ProductDTO
+                {
+                    Id = productDTO.Id,
+                    Name = productDTO.Name,
+                    Description = productDTO.Description,
+                    isIngredient = productDTO.isIngredient,
+                    CategoryId = productDTO.CategoryId,
+                    Images = productDTO.Images,
+                    ConfigurationPositionId = productDTO.ConfigurationPositionId,
+                    PriceBrutto = productDTO.PriceBrutto,
+                    AmountInStock = productDTO.AmountInStock,
+                    IsActive = productDTO.IsActive,
+
+                };
+
+                dbProduct.Add(product);
+            }
+            return new ServiceResponse<List<ProductDTO>> { Value = dbProduct, ReturnMesage = "Product List", Success = true }; ;
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetIngridientsByPosition(string position)
+        public async Task<ServiceResponse<List<ProductDTO>>> GetIngridientsByPosition(string position)
         {
-            var response = new ServiceResponse<List<Product>>()
+            var response = new List<Product>();
+            var dbProduct = new List<ProductDTO>();
+            response = await _data.Products.Where(p => p.IsActive && !p.IsDeleted && p.isIngredient && p.Position.Name == position).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category).ToListAsync();
+            foreach (var productDTO in response)
             {
-                Value = await _data.Products.Where(p => p.IsActive && !p.IsDeleted && p.isIngredient && p.Position.Name==position).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category)
-                .ToListAsync()
-            };
-            return response;
+                var product = new ProductDTO
+                {
+                    Id = productDTO.Id,
+                    Name = productDTO.Name,
+                    Description = productDTO.Description,
+                    isIngredient = productDTO.isIngredient,
+                    CategoryId = productDTO.CategoryId,
+                    Images = productDTO.Images,
+                    ConfigurationPositionId = productDTO.ConfigurationPositionId,
+                    PriceBrutto = productDTO.PriceBrutto,
+                    AmountInStock = productDTO.AmountInStock,
+                    IsActive = productDTO.IsActive,
+
+                };
+
+                dbProduct.Add(product);
+            }
+            return new ServiceResponse<List<ProductDTO>> { Value = dbProduct, ReturnMesage = "Product List", Success = true }; ;
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetProductByCategory(string Category)
+        public async Task<ServiceResponse<List<ProductDTO>>> GetProductByCategory(string Category)
         {
-            var response = new ServiceResponse<List<Product>>()
+            var response = new List<Product>();
+            var dbProduct = new List<ProductDTO>();
+            response = await _data.Products.Where(p => p.IsActive && !p.IsDeleted && p.Category.Name == Category).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category).ToListAsync();
+            foreach (var productDTO in response)
             {
-                Value = await _data.Products.Where(p => p.IsActive && !p.IsDeleted && p.Category.Name==Category).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category)
-              .ToListAsync()
-            };
-            return response;
+                var product = new ProductDTO
+                {
+                    Id = productDTO.Id,
+                    Name = productDTO.Name,
+                    Description = productDTO.Description,
+                    isIngredient = productDTO.isIngredient,
+                    CategoryId = productDTO.CategoryId,
+                    Images = productDTO.Images,
+                    ConfigurationPositionId = productDTO.ConfigurationPositionId,
+                    PriceBrutto = productDTO.PriceBrutto,
+                    AmountInStock = productDTO.AmountInStock,
+                    IsActive = productDTO.IsActive,
+
+                };
+
+                dbProduct.Add(product);
+            }
+            return new ServiceResponse<List<ProductDTO>> { Value = dbProduct, ReturnMesage = "Product List", Success = true }; ;
         }
 
-        public async Task<ServiceResponse<Product>> GetProductByID(int Id)
+        public async Task<ServiceResponse<ProductDTO>> GetProductByID(int Id)
         {
-            var response = new ServiceResponse<Product>()
-            {
-                Value = await _data.Products.Include(p => p.Images).Include(b => b.Position).Include(c => c.Category).FirstOrDefaultAsync(x => x.Id == Id && !x.IsDeleted)
-        };
-            return response;
+            var response = new Product();
+            var dbProduct = new ProductDTO();
+            response = await _data.Products.Include(p => p.Images).Include(b => b.Position).Include(c => c.Category).FirstOrDefaultAsync(x => x.Id == Id && !x.IsDeleted);
+
+                var product = new ProductDTO
+                {
+                    Id = response.Id,
+                    Name = response.Name,
+                    Description = response.Description,
+                    isIngredient = response.isIngredient,
+                    CategoryId = response.CategoryId,
+                    Images = response.Images,
+                    ConfigurationPositionId = response.ConfigurationPositionId,
+                    PriceBrutto = response.PriceBrutto,
+                    AmountInStock = response.AmountInStock,
+                    IsActive = response.IsActive,
+
+                };
+            
+            return new ServiceResponse<ProductDTO> { Value = dbProduct, ReturnMesage = "Product List", Success = true }; ;
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetProductByPosition(string position)
+        public async Task<ServiceResponse<List<ProductDTO>>> GetProductByPosition(string position)
         {
-            var response = new ServiceResponse<List<Product>>()
+            var response = new List<Product>();
+            var dbProduct = new List<ProductDTO>();
+            response = await _data.Products.Where(p => p.IsActive && !p.IsDeleted && p.Position.Name == position).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category).ToListAsync();
+
+            foreach (var productDTO in response)
             {
-                Value = await _data.Products.Where(p => p.IsActive && !p.IsDeleted && p.Position.Name == position  ).Include(p => p.Images).Include(b => b.Position).Include(c => c.Category)
-             .ToListAsync()
-            };
-            return response;
+                var product = new ProductDTO
+                {
+                    Id = productDTO.Id,
+                    Name = productDTO.Name,
+                    Description = productDTO.Description,
+                    isIngredient = productDTO.isIngredient,
+                    CategoryId = productDTO.CategoryId,
+                    Images = productDTO.Images,
+                    ConfigurationPositionId = productDTO.ConfigurationPositionId,
+                    PriceBrutto = productDTO.PriceBrutto,
+                    AmountInStock = productDTO.AmountInStock,
+                    IsActive = productDTO.IsActive,
+
+                };
+
+                dbProduct.Add(product);
+            }
+            return new ServiceResponse<List<ProductDTO>> { Value = dbProduct, ReturnMesage = "Product List", Success = true }; ;
         }
 
-        public async Task<ServiceResponse<Product>> Update(ProductDTO product,int Id)
+        public async Task<ServiceResponse<ProductDTO>> Update(ProductDTO product,int Id)
         {
             Product Product=new Product();
             try
@@ -153,13 +274,13 @@ namespace Application.Services
             }
             catch (Exception ex)
             {
-                new ServiceResponse<Product> { ReturnMesage = "No ProductFound", Success = false };
+                new ServiceResponse<ProductDTO> { ReturnMesage = "No ProductFound", Success = false };
             }
 
 
             
             _data.SaveChanges();
-            return  new ServiceResponse<Product> { Value = Product, ReturnMesage = "Updated the Prdouct", Success = true };
+            return  new ServiceResponse<ProductDTO> { Value = product, ReturnMesage = "Updated the Prdouct", Success = true };
 
 
         }

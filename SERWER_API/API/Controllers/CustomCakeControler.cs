@@ -16,9 +16,16 @@ namespace API.Controllers
         public CustomCakeControler(ICustomCakeService customCakeService) { _customCakeService = customCakeService; }
 
         [HttpGet("getall/", Name = "GetAllCustomCakes")]
-        public async Task<ActionResult<ServiceResponse<List<Category>>>> GetAllCustomCakes()
+        public async Task<ActionResult<ServiceResponse<List<CustomCakeDTO>>>> GetAllCustomCakes()
         {
             var respone = await _customCakeService.GetAllCustomCakes();
+            return Ok(respone);
+        }
+
+        [HttpGet("getbyid/", Name = "GetCustomCakeByID")]
+        public async Task<ActionResult<ServiceResponse<List<CustomCakeDTO>>>> GetCustomCakeByID(int id)
+        {
+            var respone = await _customCakeService.GetCustomCakeByID(id);
             return Ok(respone);
         }
 
