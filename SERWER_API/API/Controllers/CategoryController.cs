@@ -1,13 +1,13 @@
 ﻿using Application.IServices;
 using Domain.Models;
 using Domain;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using API.Attributes;
 
 namespace API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/categorys")]
     public class CategoryController : ControllerBase
     {

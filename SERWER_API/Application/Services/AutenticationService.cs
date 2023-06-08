@@ -3,21 +3,19 @@ using Domain;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence.DataContextFolder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
     public class AutenticationService : IAutenticationService
     {
         private readonly DataContext _data;
-        public AutenticationService(DataContext data)
+        private readonly IJwtUtils _jwtUtils;
+
+        public AutenticationService(DataContext data, IJwtUtils jwtUtils)
         {
             _data = data;
+            _jwtUtils = jwtUtils;
         }
 
         public async Task<ServiceResponse<bool>> ChangeEmail(int userId, string newEmail)
@@ -225,22 +223,16 @@ namespace Application.Services
         public async Task<ServiceResponse<string>> Login(string Username, string password)
         {
             var response = new ServiceResponse<string>();
-            var user = await _data.Users.FirstOrDefaultAsync(x => x.Username == Username);
-            if (user == null)
-            {
-                response.Success = false;
-                response.ReturnMesage = "Bad Username or Login";
-            }
-
-            else if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            var user = await _data.Users.FirstOrDefaultAsync(x => x.Username.ToLower() == Username.ToLower());
+            if (user == null || !VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             {
                 response.Success = false;
                 response.ReturnMesage = "Bad Username or Login";
             }
             else
             {
-                
-                response.ReturnMesage = "Token";
+
+                response.ReturnMesage = _jwtUtils.GenerateJwtToken(user);
                 response.Success = true;
             }
             return response;
@@ -297,14 +289,10 @@ namespace Application.Services
             return false;
         }
 
-        public async Task<bool> UserExistsUsername(string Username)
+        public Task<bool> UserExistsUsername(string Username)
         {
-            if (await _data.Users.AnyAsync(user => user.Username.ToLower()
-                 .Equals(Username.ToLower())))
-            {
-                return true;
-            }
-            return false;
+            return _data.Users.AnyAsync(user => user.Username.ToLower()
+                             .Equals(Username.ToLower()));
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

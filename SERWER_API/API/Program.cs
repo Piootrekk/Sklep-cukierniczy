@@ -1,4 +1,6 @@
+using API.Middlewares;
 using Application.IServices;
+using Application.Options;
 using Application.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +23,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
 builder.Services.AddScoped<IAutenticationService, AutenticationService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IShipingTypeService, ShipingTypeService>();
@@ -28,6 +32,7 @@ builder.Services.AddScoped<IConfigurationPositionService, ConfigurationPositionS
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomCakeService, CustomCakeService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
 
 builder.Services.AddCors(opt =>
@@ -49,6 +54,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("CorsPolicy");
+
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
 
