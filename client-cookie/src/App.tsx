@@ -29,7 +29,7 @@ function App() {
               <SignIn />
             </main>} />
             <Route path='/' element={<PrivateRoute/>}>
-              <Route path="stronaglowna" element={<main>
+              <Route path="" element={<main>
                 <Cakes />
               </main>} />
               <Route path="configurator" element={<main><CakeVisualization  /></main>} />

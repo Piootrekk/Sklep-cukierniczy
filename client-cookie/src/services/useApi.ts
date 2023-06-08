@@ -23,11 +23,13 @@ export function useApi(): Api {
     };
 
     const modifyConfig = (config?: AxiosRequestConfig): AxiosRequestConfig => {
+        const token = localStorage.getItem('token');
         return {
             baseURL: 'http://localhost:5003/api',
             ...config,
             headers: {
                 'content-type': 'application/json',
+                Authorization: `Bearer ${token}`,
             },
         };
     };

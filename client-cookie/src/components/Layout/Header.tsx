@@ -7,9 +7,15 @@ import logo from "../../assets/ciastko___/ciastko_napis.png";
 import UserButton from "./UserButton";
 import NavLink from "./NavLink";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = (props: any) => {
   const navigate = useNavigate();
+  const isLoggedIn = useAuth();
+  const logout = () => {
+    localStorage.removeItem('token');
+    navigate('/login')
+  }
   return (
     <Fragment>
       <header className={classes.header}>
@@ -20,7 +26,8 @@ const Header = (props: any) => {
         <section className={classes.div}>
           <HeaderCart onClick={props.onShowCart} />
           <UserButton />
-          <NavLink onClick={() => navigate('/configurator')} />
+          <NavLink name="Konfigurator" onClick={() => navigate('/configurator')} />
+          {isLoggedIn && <NavLink name="Wyloguj" onClick={logout} />}
         </section>
       </header>
       <div className={classes["main-image"]}>

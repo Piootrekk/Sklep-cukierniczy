@@ -1,10 +1,10 @@
 import classes from "./HeaderCart.module.css";
 
 
-const NavLink = (props: { onClick: () => void}) => {
+const NavLink = (props: { onClick: () => void, name: string}) => {
   return (
     <button className={classes.button} onClick={props.onClick}>
-      <span>Konfigurator</span>
+      <span>{props.name}</span>
     </button>
   );
 };
