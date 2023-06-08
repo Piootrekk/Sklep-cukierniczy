@@ -24,10 +24,14 @@ const Header = (props: any) => {
           <h1 onClick={() => navigate('/')}>ZaczarowanaCukiernia</h1>
         </section>
         <section className={classes.div}>
-          <HeaderCart onClick={props.onShowCart} />
-          <UserButton />
-          <NavLink name="Konfigurator" onClick={() => navigate('/configurator')} />
-          {isLoggedIn && <NavLink name="Wyloguj" onClick={logout} />}
+          {isLoggedIn &&
+            <>
+              <HeaderCart onClick={props.onShowCart} />
+              <UserButton />
+              <NavLink name="Konfigurator" onClick={() => navigate('/configurator')} />
+              <NavLink name="Wyloguj" onClick={logout} />
+
+            </>}
         </section>
       </header>
       <div className={classes["main-image"]}>

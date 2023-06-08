@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Header from './components/Layout/Header';
 import Cakes from './components/Content/Cakes';
 import Cart from './components/Cart/Cart';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import CartProvider from './storage/CartProvider';
 import { CakeVisualization } from './components/Configurator/Configurator';
 import { CakeProvider } from './storage/CustomCakeCont';
@@ -34,6 +34,7 @@ function App() {
               </main>} />
               <Route path="configurator" element={<main><CakeVisualization  /></main>} />
             </Route>
+            <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </CakeProvider>
     </CartProvider>
