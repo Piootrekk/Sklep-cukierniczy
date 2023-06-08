@@ -3,17 +3,17 @@ import classes from "./AvailableCakes.module.css";
 import Card from "../UI/Card";
 import Item from "./SingleItem/Item";
 import Async from "../Async/Async";
-import { useCustomCookApi } from "../Configurator/Repositories/configuratorRepositories";
+import { useGetAllProducts } from "../Configurator/Repositories/configuratorRepositories";
 import { Ingredient } from "../Configurator/Configurator";
 
 const AvailableCakes: React.FC = () => {
-  const getCakes = useCustomCookApi();
+  const getAllProducts = useGetAllProducts()
   return (
-    <Async action={() => getCakes()}>
+    <Async action={() => getAllProducts()}>
       {data => 
         <section className={classes.cakes}>
           <Card>
-            <ul>{data.value.map((cake: Ingredient) => <Item
+            <ul>{data.value.filter((i: Ingredient) => i.isIngredient === false).map((cake: Ingredient) => <Item
               id={cake.id}
               key={cake.id}
               description={cake.description}

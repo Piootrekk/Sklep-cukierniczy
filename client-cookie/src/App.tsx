@@ -7,6 +7,8 @@ import { Route, Routes } from 'react-router-dom';
 import CartProvider from './storage/CartProvider';
 import { CakeVisualization } from './components/Configurator/Configurator';
 import { CakeProvider } from './storage/CustomCakeCont';
+import PrivateRoute from './components/SignIn/PrivateRoute';
+import SignIn from './components/SignIn/SignIn';
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -16,7 +18,6 @@ function App() {
   const hideCartHandler = () => {
     setCartIsShown(false);
   };
-
   return (
     <CartProvider>
       <CakeProvider>
@@ -24,10 +25,15 @@ function App() {
         <div id="overlays"></div>
         <Header onShowCart={showCartHandler} />
         <Routes>
-          <Route path="/" element={<main>
-            <Cakes />
-          </main>} />
-          <Route path="configurator" element={<main><CakeVisualization  /></main>} />
+            <Route path="/login" element={<main>
+              <SignIn />
+            </main>} />
+            <Route path='/' element={<PrivateRoute/>}>
+              <Route path="stronaglowna" element={<main>
+                <Cakes />
+              </main>} />
+              <Route path="configurator" element={<main><CakeVisualization  /></main>} />
+            </Route>
         </Routes>
       </CakeProvider>
     </CartProvider>

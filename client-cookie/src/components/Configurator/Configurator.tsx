@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import Async from "../Async/Async";
-import { useGetAllIngredients } from "./Repositories/configuratorRepositories";
+import { useGetAllIngredients, useGetCategories } from "./Repositories/configuratorRepositories";
 import { CakeContext } from "../../storage/CustomCakeCont";
 import classes from "./Configurator.module.css";
+import MyForm from "./Container/ConfiguratorForm";
 
 export interface Image {
   added: Date;
@@ -26,11 +27,13 @@ export interface Ingredient {
 
 export const CakeVisualization: React.FC = () => {
   const getAllIngredients = useGetAllIngredients();
+  const getCategories = useGetCategories();
   return (
-    <Async action={() => getAllIngredients()}>
+    <Async action={() => Promise.all([getAllIngredients(), getCategories()])}>
       {data => <div className={classes.container}>
         <Cake />
-        <IngredientList data={data} />
+        <IngredientList data={data[0]} />
+        <MyForm categories={data[1].value}/>
       </div>}
     </Async>
   );
