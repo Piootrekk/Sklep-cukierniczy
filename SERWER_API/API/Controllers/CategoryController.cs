@@ -1,8 +1,6 @@
 ﻿using Application.IServices;
 using Domain.Models;
 using Domain;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
