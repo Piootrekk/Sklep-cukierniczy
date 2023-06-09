@@ -13,7 +13,7 @@ export const useGetAllIngredients = createApiHook(api => async () => {
     return (await api.get('/products/getallingridients')).data
 })
 
-export const useAddNewCustomCake = createApiHook(api => (data: Ingredient) =>
+export const useAddNewProduct = createApiHook(api => (data: Partial<Ingredient>) =>
     api.post('/products/addproduct', data)
 )
 

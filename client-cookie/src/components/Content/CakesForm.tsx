@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Select from '../Configurator/Container/Select';
 import { Categories } from '../Configurator/Container/ConfiguratorForm';
-import { useAddNewCustomCake } from '../Configurator/Repositories/configuratorRepositories';
-import { v4 as uuidv4 } from 'uuid';
+import { useAddNewProduct } from '../Configurator/Repositories/configuratorRepositories';
 import classes from "../Cart/Cart.module.css";
 
 
@@ -28,47 +27,45 @@ type FormData = {
     isActive: boolean;
 };
 
-const CakesForm: React.FC<{ categories: Categories[] }> = ({ categories }) => {
+const CakesForm: React.FC<{ categories: Categories[], productNumber: number, onClose: () => void, refresh: () => void }> = ({ categories, productNumber, onClose, refresh }) => {
     const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
         defaultValues: {
             name: '',
             description: '',
             isIngredient: false,
             categoryId: 1,
-            configurationPositionId: 1,
+            configurationPositionId: 5,
             priceBrutto: 1,
             amountInStock: 1,
             isActive: true
         }
     });
-    const addNewProduct = useAddNewCustomCake();
+    const [categoriesList] = useState(categories)
+    const [productLength] = useState(productNumber)
+    const addNewProduct = useAddNewProduct();
     const [categoryId, setSelectedValue] = useState('');
     const setCategoryId = (e: SelectChangeEvent) => {
         setSelectedValue(e.target.value);
     }
-    const onSubmit = (data: FormData) => {
-        const id = uuidv4();
-        addNewProduct({
-            id: id,
-            amountInStock: 1,
-            categoryId: Number(categoryId),
-            configurationPositionId: Number(data.configurationPositionId),
-            description: data.description,
-            images:  [
-                {
-                  "id": 123,
-                  "name": "string",
-                  "url": "string",
-                  "added": new Date(),
-                  "isDeleted": false
-                }
-              ],
-            isActive: true,
-            isIngredient: data.isIngredient,
-            name: data.name,
-            priceBrutto: Number(data.priceBrutto),
-            uid: id,
-        })
+    const onSubmit = async (data: FormData) => {
+        try {
+            await addNewProduct({
+                id: productLength + 1,
+                amountInStock: 1,
+                categoryId: Number(categoryId),
+                configurationPositionId: Number(data.configurationPositionId),
+                description: data.description,
+                images:  [],
+                isActive: true,
+                isIngredient: data.isIngredient,
+                name: data.name,
+                priceBrutto: Number(data.priceBrutto),
+            })
+            onClose();
+            refresh();
+        } catch {
+            throw new Error('Nie udało się dodac produktu')
+        }
     };
 
     return (
@@ -96,7 +93,7 @@ const CakesForm: React.FC<{ categories: Categories[] }> = ({ categories }) => {
                     {errors.description && <span style={{ color: 'red' }}>To pole jest wymagane!</span>}
                 </Grid>
                 <Grid item xs={6}>
-                    <Select categoryId={categoryId} setCategoryId={(e: SelectChangeEvent) => setCategoryId(e)} control={control} name='categoryId' options={categories} />
+                    <Select categoryId={categoryId} setCategoryId={(e: SelectChangeEvent) => setCategoryId(e)} control={control} name='categoryId' options={categoriesList} />
                 </Grid>
                 <Grid item xs={6}>
                     <label htmlFor="configurationPositionId">Ustal pozycję składnika:</label>
@@ -123,7 +120,6 @@ const CakesForm: React.FC<{ categories: Categories[] }> = ({ categories }) => {
                     <Controller
                         control={control}
                         name="isIngredient"
-                        rules={{ required: true }}
                         render={({ field }) =>
                             <Checkbox style={{ width: 30 }} id="isIngredient" {...field} />
                         }

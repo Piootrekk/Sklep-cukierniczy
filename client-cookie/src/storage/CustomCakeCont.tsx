@@ -14,7 +14,7 @@ export interface Ingredient {
   configurationPositionId: number;
   amountInStock: number;
   description: string;
-  id: string;
+  id: string | number;
   isIngredient: boolean;
   images: Image[];
   isActive: boolean;
