@@ -65,14 +65,54 @@ const Cake = () => {
 
   return <div className={classes.cake}>
     <div className={classes.biszkoptGorny} />
-    {cakeContext?.cake.ingredients.map(({ name, images, uid }) => {
-      return <div key={uid} onClick={() => cakeContext.removeIngredient(uid)}>
-        {images[0] ? <img width={300} height={50} src={images[0]?.url} alt={images[0]?.name} /> : name}
+    {cakeContext?.cake.ingredients.map(({ name, uid }) => {
+      return <div key={uid} onClick={() => cakeContext.removeIngredient(uid)} className={classes.ingredient}>
+        {getIngredient(name)}
       </div>
     })}
     <div className={classes.biszkoptDolny} />
   </div>
 }
+
+const BiszkoptComponent = () => {
+  return <div className={classes.biszkopt}>Biszkopt</div>
+}
+const KremWaniliowyComponent = () => {
+  return <div className={classes.kremwaniliowy}>Krem Waniliowy</div>
+}
+const BiszkoptCzekoladowyComponent = () => {
+  return <div className={classes.biszkoptczekoladowy}>Biszkopt Czekoladowy</div>
+}
+const BiszkoptTruskawkowyComponent = () => {
+  return <div className={classes.biszkopttruskawkowy}>Biszkopt Truskawkowy</div>
+}
+const KremCzekoladowyComponent = () => {
+  return <div className={classes.kremczekoladowy}>Krem Czekoladowy</div>
+}
+const GaleretkaComponent = () => {
+  return <div className={classes.galeretka}>Galeretka</div>
+}
+const BiszkoptWaniliowyComponent = () => {
+  return <div className={classes.biszkoptwaniliowy}>Biszkopt Waniliowy</div>
+}
+
+const ingredientComponents: Record<IngredientName, JSX.Element> = {
+  'Biszkopt': <BiszkoptComponent />,
+  'Krem waniliowy': <KremWaniliowyComponent />,
+  'Biszkopt Czekoladowy': <BiszkoptCzekoladowyComponent />,
+  'Biszkopt Truskawkowy': <BiszkoptTruskawkowyComponent />,
+  'Biszkopt Waniliowy': <BiszkoptWaniliowyComponent />,
+  'Krem czekoladowy': <KremCzekoladowyComponent />,
+  'Galaretka': <GaleretkaComponent />,
+};
+ 
+const getIngredient = (name: IngredientName): JSX.Element | null => {
+  return ingredientComponents[name] || <div>{name}</div>;
+};
+
+
+
+
 export const IngredientList = (props: ICake) => {
   const cakeContext = useContext(CakeContext);
   if (!cakeContext) {
