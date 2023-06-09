@@ -1,8 +1,8 @@
 export interface ICartItem {
-    id: number;
+    id: string;
     name: string;
     amount: number;
-    price: number
+    priceBrutto: number
 }
 
 export interface PropsCartItem extends ICartItem {

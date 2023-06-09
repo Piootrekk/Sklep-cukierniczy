@@ -1,4 +1,5 @@
-import {useEffect, useState} from "react";
+import { CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
 interface AsyncProps<Data> {
     children: (data: Data) => JSX.Element
     action: () => Promise<Data>
@@ -8,7 +9,7 @@ interface AsyncProps<Data> {
 }
 
 export default function Async<Data>(props: AsyncProps<Data>) {
-    const {onLoad = () => {}, deps = [], showLoader = true} = props;
+    const { onLoad = () => { }, deps = [], showLoader = true } = props;
     const [loading, setLoading] = useState(showLoader);
     const [success, setSuccess] = useState(false);
     const [result, setResult] = useState<Data>();
@@ -32,7 +33,7 @@ export default function Async<Data>(props: AsyncProps<Data>) {
                     setLoading(false);
                 }
             });
-        
+
         return () => {
             cancelled = true;
         };
@@ -40,7 +41,7 @@ export default function Async<Data>(props: AsyncProps<Data>) {
 
     return <>
         {loading && <div style={{ textAlign: "center", height: 20 }} data-testid={"loading"}>
-            ...loading
+            <CircularProgress color="inherit" />
         </div>}
         {!loading && success && props.children(result!)}
     </>;

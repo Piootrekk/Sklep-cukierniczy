@@ -4,10 +4,10 @@ import classes from "./HeaderCart.module.css";
 import { CartContext } from "../../storage/CartProvider";
 
 const HeaderCart = (props: any) => {
-    const cartCtx = useContext(CartContext);
-    const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {return curNumber + item.amountInStock}, 0);
+  const cartCtx = useContext(CartContext);
+  const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => { return curNumber + item.amountInStock }, 0);
 
-    return (
+  return (
     <button className={classes.button} onClick={props.onClick}>
       <span className={classes.icon}>
         <img src={Cart} alt="Cart" />

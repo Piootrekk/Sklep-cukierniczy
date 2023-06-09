@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios"
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import axiosService from "./axiosService";
 
 interface Api {

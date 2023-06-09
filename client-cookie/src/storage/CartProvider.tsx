@@ -1,5 +1,5 @@
 import { createContext, useReducer } from 'react';
-import { Ingredient } from '../components/Configurator/Configurator';
+import { Ingredient } from './CustomCakeCont';
 
 export interface CartState {
     items: Ingredient[];
@@ -10,11 +10,11 @@ export interface CartReturn {
     items: Ingredient[];
     totalAmount: number
     addItem: (item: Ingredient) => void
-    removeItem: (id: number) => void
+    removeItem: (id: string) => void
 }
 type CartAction =
   | { type: 'ADD'; item: Ingredient }
-  | { type: 'REMOVE'; id: number };
+  | { type: 'REMOVE'; id: string };
 
 const defaultCartState: CartState = {
   items: [],
@@ -86,7 +86,7 @@ const CartProvider = (props: { children: React.ReactNode }) => {
     dispatchCartAction({ type: 'ADD', item: item });
   };
 
-  const removeItemFromCartHandler = (id: number) => {
+  const removeItemFromCartHandler = (id: string) => {
     dispatchCartAction({ type: 'REMOVE', id: id });
   };
 
@@ -96,7 +96,6 @@ const CartProvider = (props: { children: React.ReactNode }) => {
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
   };
-
   return (
     <CartContext.Provider value={cartContext}>
       {props.children}

@@ -14,7 +14,7 @@ export const useGetAllIngredients = createApiHook(api => async () => {
 })
 
 export const useAddNewCustomCake = createApiHook(api => (data: Ingredient) =>
-    api.post<{ id: number }>('/products/addproduct', data)
+    api.post('/products/addproduct', data)
 )
 
 export const useGetCategories = createApiHook(api => async () => {

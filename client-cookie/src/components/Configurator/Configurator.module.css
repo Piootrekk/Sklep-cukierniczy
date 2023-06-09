@@ -14,6 +14,39 @@
   z-index: 10;
 }
 
+.biszkoptGorny {
+  width: 350px;
+  height: 80px;
+  background-color: #946B45;
+  background-image: linear-gradient(#946B45, #946B45);
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: flex;
+  border-radius: 100px 100px 0 0;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  color: #333333;
+  font-size: 24px;
+  text-align: center;
+}
+
+.biszkoptDolny {
+  width: 350px;
+  height: 60px;
+  background-color: #946B45;
+  background-image: linear-gradient(#946B45, #946B45);
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  color: #333333;
+  font-size: 24px;
+  text-align: center;
+}
+
 .imageLogo {
   width: 5rem;
   height: 5rem;
@@ -21,9 +54,19 @@
 
 .container {
   display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: space-between;
   gap: 1rem;
-  justify-content: center;  
   flex: 1;
+}
+
+.configuratorBox {
+  display: flex;
+  justify-items: center;
+  gap: 1rem;
+  flex: 1;
+
 }
 
 .cake {
@@ -31,10 +74,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
 }
 
 .ingredients {
-  width: max-content;
   flex-basis: 40%;
 }
 
@@ -50,4 +93,23 @@
   height: 100%;
   object-fit: cover;
   transform: rotateZ(-5deg) translateY(-4rem) translateX(-1rem);
+}
+
+.summary {
+  text-align: center;
+  max-width: 45rem;
+  width: 90%;
+  margin: auto;
+  margin-top: -10rem;
+  position: relative;
+  background-color: #383838;
+  color: white;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 1px 18px 10px rgba(0, 0, 0, 0.25);
+}
+
+.summary h2 {
+  font-size: 2rem;
+  margin-top: 0;
 }

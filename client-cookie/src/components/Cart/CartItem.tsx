@@ -1,14 +1,14 @@
 import classes from './CartItem.module.css';
 import { PropsCartItem } from './interfaces/CartInterfaces';
 
-const CartItem = ({price, name, amount, onRemove, onAdd}: PropsCartItem ) => {
-  const priceFixed = `${price.toFixed(2)} PLN`; 
+const CartItem = ({priceBrutto, name, amount, onRemove, onAdd}: PropsCartItem ) => {
+  const priceFixed = `${priceBrutto.toFixed(2)} PLN`; 
   return (
     <li className={classes['cart-item']}>
       <div>
         <h2>{name}</h2>
         <div className={classes.summary}>
-          <span className={classes.price}>{priceFixed}</span>
+          <span className={classes.priceBrutto}>{priceFixed}</span>
           <span className={classes.amount}>x {amount}</span>
         </div>
       </div>

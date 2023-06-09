@@ -9,11 +9,12 @@ interface CakeProps {
 }
 
 export interface Ingredient {
+  uid: string;
   categoryId: number;
   configurationPositionId: number;
   amountInStock: number;
   description: string;
-  id: number;
+  id: string;
   isIngredient: boolean;
   images: Image[];
   isActive: boolean;
@@ -24,7 +25,7 @@ export interface Ingredient {
 interface CakeContextProps {
   cake: CakeProps;
   addIngredient: (ingredient: Ingredient) => void;
-  removeIngredient: (ingredientId: number) => void;
+  removeIngredient: (ingredientId: string) => void;
 }
 
 export const CakeContext = createContext<CakeContextProps | undefined>(undefined);
@@ -37,7 +38,6 @@ const initialCake: CakeProps = {
   }
 export const CakeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cake, setCake] = useState<CakeProps>(initialCake);
-
   const addIngredient = useCallback((ingredient: Ingredient) => {
     setCake((prevCake) => {
       const { ingredients } = prevCake;
@@ -49,21 +49,21 @@ export const CakeProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } else if (ingredient.configurationPositionId !== undefined) {
         insertIndex = updatedIngredients.length; // Wstawienie na końcu, jeśli określony indeks przekracza długość tablicy
       }
-  
+
       updatedIngredients.splice(insertIndex, 0, ingredient);
   
       return {
         ...prevCake,
-        ingredients: updatedIngredients,
+        ingredients: [...updatedIngredients],
       };
     });
   }, []);
 
-  const removeIngredient = useCallback((ingredientId: number) => {
+  const removeIngredient = useCallback((ingredientId: string) => {
     setCake((prevCake) => ({
       ...prevCake,
       ingredients: prevCake.ingredients.filter((ingredient) =>
-        ingredient.id !== ingredientId
+        ingredient.uid !== ingredientId
       ),
     }));
   }, []);
@@ -71,7 +71,6 @@ export const CakeProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const totalBruttoPrice = useMemo(() => {
     return cake.ingredients.reduce((total, ingredient) => {
         return total + ingredient.priceBrutto;
-      return total;
     }, 0);
   }, [cake.ingredients]);
 

@@ -4,7 +4,7 @@ import classes from "./Form.module.css";
 import Input from "../../UI/Input";
 
 interface Props {
-  id: number;
+  id: string;
   addItem: (item: number) => void;
 }
 

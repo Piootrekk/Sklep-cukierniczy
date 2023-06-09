@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import classes from "./Item.module.css";
 import FormItem from "./FormItem";
 import { CartContext, CartReturn } from "../../../storage/CartProvider";
-import { Ingredient } from "../../Configurator/Configurator";
+import { Ingredient } from "../../../storage/CustomCakeCont";
 
 const Item: React.FC<Ingredient> = (props) => {
   const cartCtx = useContext(CartContext);
@@ -10,6 +10,7 @@ const Item: React.FC<Ingredient> = (props) => {
   const addItemHandler = (amount: number) => {
 
     return (cartCtx as CartReturn).addItem({
+      uid: props.uid,
       id: props.id,
       name: props.name,
       amountInStock: amount,
