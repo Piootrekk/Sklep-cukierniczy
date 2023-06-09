@@ -98,7 +98,6 @@ export const IngredientList = (props: ICake) => {
               sx={{ mt: 1, mb: 1 }}
             >
               Dodaj do ciasta
-
             </Button>
           </li>
         ))}
