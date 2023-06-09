@@ -5,6 +5,7 @@ using Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Domain.DTO;
+using API.Requests.CustomCake;
 
 namespace API.Controllers
 {
@@ -37,7 +38,7 @@ namespace API.Controllers
         }
 
         [HttpPost("addcake/" , Name ="AddCustomCake")]
-        public async Task<ActionResult<ServiceResponse<List<CustomCakeDTO>>>> AddCustomCake(CustomCakeDTO cakeDTO)
+        public async Task<ActionResult<ServiceResponse<List<CustomCakeDTO>>>> AddCustomCake(AddCustomCakeRequest cakeDTO)
         {
             var result = await _customCakeService.AddCustomCake(cakeDTO.Description, cakeDTO.Name, cakeDTO.PriceBrutto, cakeDTO.IngredientList);
             return Ok(result);
