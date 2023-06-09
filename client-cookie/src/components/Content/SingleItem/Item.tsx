@@ -32,7 +32,7 @@ const Item: React.FC<Ingredient> = (props) => {
         <div className={classes.price}>{props.priceBrutto.toFixed(2)} PLN</div>
       </div>
       <div>
-        <FormItem id={props.id} addItem={addItemHandler} />
+        <FormItem id={props.id as string} addItem={addItemHandler} />
       </div>
     </li>
   );

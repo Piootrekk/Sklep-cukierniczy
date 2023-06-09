@@ -16,12 +16,12 @@ const Cart = ({ onClose }: { onClose: () => void }) => {
     <ul className={classes["cart-items"]}>
       {cartCtx.items.map((item) => (
         <CartItem
-          id={item.id}
+          id={item.id as string}
           key={uuidv4()}
           name={item.name}
           amount={item.amountInStock}
           priceBrutto={item.priceBrutto}
-          onRemove={() => (cartCtx as CartReturn).removeItem(item.id)}
+          onRemove={() => (cartCtx as CartReturn).removeItem(item.id as string)}
           onAdd={() => cartItemAddHandler(item)}
         />
       ))}
