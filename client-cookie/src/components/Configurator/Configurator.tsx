@@ -65,14 +65,37 @@ const Cake = () => {
 
   return <div className={classes.cake}>
     <div className={classes.biszkoptGorny} />
-    {cakeContext?.cake.ingredients.map(({ name, images, uid }) => {
-      return <div key={uid} onClick={() => cakeContext.removeIngredient(uid)}>
-        {images[0] ? <img width={300} height={50} src={images[0]?.url} alt={images[0]?.name} /> : name}
+    {cakeContext?.cake.ingredients.map(({ name, uid }) => {
+      return <div key={uid} onClick={() => cakeContext.removeIngredient(uid)} className={classes.ingredient}>
+        {getIngredient(name)}
       </div>
     })}
     <div className={classes.biszkoptDolny} />
   </div>
 }
+
+const IngredientComponent = ( {className, name}) => {
+  return <div className={className}>{name}</div>
+}
+
+const ingredientComponents: Record<IngredientName, string> = {
+  'Biszkopt': classes.biszkopt,
+  'Krem waniliowy': classes.kremwaniliowy,
+  'Biszkopt Czekoladowy': classes.biszkoptczekoladowy,
+  'Biszkopt Truskawkowy': classes.biszkopttruskawkowy,
+  'Biszkopt Waniliowy': classes.biszkoptwaniliowy,
+  'Krem czekoladowy': classes.kremczekoladowy,
+  'Galaretka': classes.galeretka,
+};
+ 
+const getIngredient = (name): JSX.Element | null => {
+  const className = ingredientComponents[name];
+  return className ? <IngredientComponent className={className} name={name}/> : <div>{name}</div>;
+};
+
+
+
+
 export const IngredientList = (props: ICake) => {
   const cakeContext = useContext(CakeContext);
   if (!cakeContext) {

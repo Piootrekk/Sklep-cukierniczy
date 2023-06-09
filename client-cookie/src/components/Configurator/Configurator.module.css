@@ -74,7 +74,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .ingredients {
@@ -112,4 +112,47 @@
 .summary h2 {
   font-size: 2rem;
   margin-top: 0;
+}
+
+.galeretka{
+  width: 350px;
+  height: 65px;
+  background:linear-gradient(#49a831a8, #49a831c7);
+}
+.kremczekoladowy{
+  width: 350px;
+  height: 50px;
+  background:linear-gradient( #542a0c, #381f0ef6);
+}
+.biszkopttruskawkowy{
+  width: 350px;
+  height: 80px;
+  background:linear-gradient( #b46743, #ca6a3e);
+}
+.biszkoptczekoladowy{
+  width: 350px;
+  height: 80px;
+  background:linear-gradient( #8b4513, #5e3216);
+}
+.biszkoptwaniliowy{
+  width: 350px;
+  height: 80px;
+  background:linear-gradient( #cfd141, #d2d44b);
+}
+.kremwaniliowy{
+  width: 350px;
+  height: 50px;
+  background:linear-gradient( #fffb9d, #d4cf3d);
+}
+.biszkopt{
+  width: 350px;
+  height: 80px;
+  background-position: 0 0, 10px 10px;
+  background: linear-gradient( #ad5d27,#d89552);
+}
+.ingredient{
+  box-shadow: 2px 2px 5px #888888;
+  text-justify: center;
+  text-align: center;
+  justify-items: center;
 }
