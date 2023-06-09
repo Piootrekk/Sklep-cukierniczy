@@ -74,40 +74,23 @@ const Cake = () => {
   </div>
 }
 
-const BiszkoptComponent = () => {
-  return <div className={classes.biszkopt}>Biszkopt</div>
-}
-const KremWaniliowyComponent = () => {
-  return <div className={classes.kremwaniliowy}>Krem Waniliowy</div>
-}
-const BiszkoptCzekoladowyComponent = () => {
-  return <div className={classes.biszkoptczekoladowy}>Biszkopt Czekoladowy</div>
-}
-const BiszkoptTruskawkowyComponent = () => {
-  return <div className={classes.biszkopttruskawkowy}>Biszkopt Truskawkowy</div>
-}
-const KremCzekoladowyComponent = () => {
-  return <div className={classes.kremczekoladowy}>Krem Czekoladowy</div>
-}
-const GaleretkaComponent = () => {
-  return <div className={classes.galeretka}>Galeretka</div>
-}
-const BiszkoptWaniliowyComponent = () => {
-  return <div className={classes.biszkoptwaniliowy}>Biszkopt Waniliowy</div>
+const IngredientComponent = ( {className, name}) => {
+  return <div className={className}>{name}</div>
 }
 
-const ingredientComponents: Record<IngredientName, JSX.Element> = {
-  'Biszkopt': <BiszkoptComponent />,
-  'Krem waniliowy': <KremWaniliowyComponent />,
-  'Biszkopt Czekoladowy': <BiszkoptCzekoladowyComponent />,
-  'Biszkopt Truskawkowy': <BiszkoptTruskawkowyComponent />,
-  'Biszkopt Waniliowy': <BiszkoptWaniliowyComponent />,
-  'Krem czekoladowy': <KremCzekoladowyComponent />,
-  'Galaretka': <GaleretkaComponent />,
+const ingredientComponents: Record<IngredientName, string> = {
+  'Biszkopt': classes.biszkopt,
+  'Krem waniliowy': classes.kremwaniliowy,
+  'Biszkopt Czekoladowy': classes.biszkoptczekoladowy,
+  'Biszkopt Truskawkowy': classes.biszkopttruskawkowy,
+  'Biszkopt Waniliowy': classes.biszkoptwaniliowy,
+  'Krem czekoladowy': classes.kremczekoladowy,
+  'Galaretka': classes.galeretka,
 };
  
-const getIngredient = (name: IngredientName): JSX.Element | null => {
-  return ingredientComponents[name] || <div>{name}</div>;
+const getIngredient = (name): JSX.Element | null => {
+  const className = ingredientComponents[name];
+  return className ? <IngredientComponent className={className} name={name}/> : <div>{name}</div>;
 };
 
 
