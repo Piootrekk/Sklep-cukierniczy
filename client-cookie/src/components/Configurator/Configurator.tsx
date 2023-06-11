@@ -88,7 +88,7 @@ const ingredientComponents: Record<IngredientName, string> = {
   'Galaretka': classes.galeretka,
 };
  
-const getIngredient = (name): JSX.Element | null => {
+const getIngredient = (name: string): JSX.Element | null => {
   const className = ingredientComponents[name];
   return className ? <IngredientComponent className={className} name={name}/> : <div>{name}</div>;
 };

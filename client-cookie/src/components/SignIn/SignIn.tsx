@@ -89,6 +89,9 @@ export default function SignIn() {
                         >
                             Zaloguj się
                         </Button>
+                        <Button onClick={() => navigate('/registration')}>
+                            Rejestracja
+                        </Button>
                     </Box>
                 </Box>
             </Container>

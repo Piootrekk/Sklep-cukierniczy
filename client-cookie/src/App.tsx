@@ -9,6 +9,7 @@ import { CakeVisualization } from './components/Configurator/Configurator';
 import { CakeProvider } from './storage/CustomCakeCont';
 import PrivateRoute from './components/SignIn/PrivateRoute';
 import SignIn from './components/SignIn/SignIn';
+import SignUp from './components/SignUp/SignUp';
 import { StepperProvider } from './components/Configurator/Providers/StepperProvider';
 
 function App() {
@@ -29,6 +30,9 @@ function App() {
           <Routes>
             <Route path="/login" element={<main>
               <SignIn />
+            </main>} />
+            <Route path='/registration' element={<main>
+              <SignUp />
             </main>} />
             <Route path='/' element={<PrivateRoute />}>
               <Route path="" element={<main>
